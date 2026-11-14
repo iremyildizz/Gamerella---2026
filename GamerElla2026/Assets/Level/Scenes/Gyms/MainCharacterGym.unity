@@ -119,6 +119,11 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!4 &164530572 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 202285001327518092, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
+  m_PrefabInstance: {fileID: 2963248597863780618}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &606198083
 GameObject:
   m_ObjectHideFlags: 0
@@ -131,7 +136,6 @@ GameObject:
   - component: {fileID: 606198086}
   - component: {fileID: 606198085}
   - component: {fileID: 606198084}
-  - component: {fileID: 606198088}
   m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
@@ -232,33 +236,12 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &606198088
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 606198083}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7dc3f3946903cae40a09da8f52434d51, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::Interactable
-  onHoverEnter:
-    m_PersistentCalls:
-      m_Calls: []
-  onHoverExit:
-    m_PersistentCalls:
-      m_Calls: []
-  onInteract:
-    m_PersistentCalls:
-      m_Calls: []
 --- !u!1 &648838570 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4580651783479466658, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
   m_PrefabInstance: {fileID: 2963248597863780618}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &648838571
+--- !u!114 &648838576
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -267,17 +250,14 @@ MonoBehaviour:
   m_GameObject: {fileID: 648838570}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a5bdc4b2a2ca50745bd676252778b5ca, type: 3}
+  m_Script: {fileID: 11500000, guid: 5ba6f5668195b0945930e8fcd112cddf, type: 3}
   m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::FirstPersonInteractor
-  interactAction: {fileID: 1781555164194001046, guid: 052faaac586de48259a63d0c4782560b, type: 3}
+  m_EditorClassIdentifier: Assembly-CSharp::PlayerInteractor
+  playerCamera: {fileID: 164530572}
   interactRange: 3
   interactableLayer:
     serializedVersion: 2
     m_Bits: 128
-  reticleImage: {fileID: 0}
-  defaultColor: {r: 1, g: 1, b: 1, a: 1}
-  hoverColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!1 &1709746188
 GameObject:
   m_ObjectHideFlags: 0
@@ -582,13 +562,18 @@ PrefabInstance:
       propertyPath: m_Layer
       value: 6
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    - target: {fileID: 7443626600742214709, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
+      propertyPath: playerCamera
+      value: 
+      objectReference: {fileID: 164530572}
+    m_RemovedComponents:
+    - {fileID: 6375161546501955449, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 4580651783479466658, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 648838571}
+      insertIndex: 2
+      addedObject: {fileID: 648838576}
   m_SourcePrefab: {fileID: 100100000, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
