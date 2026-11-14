@@ -6,6 +6,7 @@ public class PlayerCharacter3D : MonoBehaviour
 {
     [Header("Movement")]
     public float moveSpeed = 5f;
+    public float gravity = -9.81f;
 
     [Header("Mouse Look")]
     public float mouseSensitivity = 0.15f;
@@ -15,6 +16,7 @@ public class PlayerCharacter3D : MonoBehaviour
     private InputAction moveAction;
     private InputAction lookAction;
     private float verticalRotation = 0f;
+    private float verticalVelocity = 0f;
 
     void Start()
     {
@@ -46,10 +48,19 @@ public class PlayerCharacter3D : MonoBehaviour
 
     void HandleMovement()
     {
+        if (controller.isGrounded && verticalVelocity < 0f)
+        {
+            verticalVelocity = -2f;
+        }
+        else
+        {
+            verticalVelocity += gravity * Time.deltaTime;
+        }
+
         Vector2 moveInput = moveAction.ReadValue<Vector2>();
+        Vector3 horizontalMove = (transform.right * moveInput.x + transform.forward * moveInput.y) * moveSpeed;
 
-        Vector3 move = (transform.right * moveInput.x + transform.forward * moveInput.y);
-
-        controller.Move(move * moveSpeed * Time.deltaTime);
+        Vector3 finalVelocity = horizontalMove + (Vector3.up * verticalVelocity);
+        controller.Move(finalVelocity * Time.deltaTime);
     }
 }
