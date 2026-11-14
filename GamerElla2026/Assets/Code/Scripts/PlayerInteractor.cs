@@ -18,6 +18,7 @@ public class PlayerInteractor : MonoBehaviour
 
     private InputAction interactAction;
     private IInteractable currentInteractable;
+    private InteractableOutline currentOutline;
 
     public bool HasInteractable => currentInteractable != null;
 
@@ -53,6 +54,21 @@ public class PlayerInteractor : MonoBehaviour
 
         if (currentInteractable != previousInteractable)
         {
+            if (currentOutline != null)
+            {
+                currentOutline.SetOutline(false);
+                currentOutline = null;
+            }
+
+            if (currentInteractable is MonoBehaviour targetBehaviour)
+            {
+                currentOutline = targetBehaviour.GetComponentInParent<InteractableOutline>();
+                if (currentOutline != null)
+                {
+                    currentOutline.SetOutline(true);
+                }
+            }
+
             UpdateCrosshair(currentInteractable != null);
         }
     }
