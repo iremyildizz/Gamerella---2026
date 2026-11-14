@@ -15,17 +15,12 @@ public class PlayerInteractor : MonoBehaviour
 
     void Start()
     {
-        interactAction = InputSystem.actions.FindAction("Interact");
+        interactAction = InputSystem.actions.FindAction("Click");
     }
 
     void Update()
     {
         DetectInteractable();
-
-        if (currentInteractable != null)
-        {
-            print($"Interactable detected: {currentInteractable.GetType().Name}");  
-        }
 
         if (interactAction != null && interactAction.WasPressedThisFrame() && currentInteractable != null)
         {
