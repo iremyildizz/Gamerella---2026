@@ -14,14 +14,16 @@ public class SciFiTerminalHUD : MonoBehaviour
     [Header("Progress Bar & Percentage")]
     [SerializeField] private Image progressBarFill;
     [SerializeField] private TextMeshProUGUI progressPercentText;
-    [SerializeField] private float correctStepGain = 0.04f;  // +4% per matching character (25 chars = 100%)
+    [SerializeField] private float correctStepGain = 0.04f;  // +4% per matching character
     [SerializeField] private float errorStepPenalty = 0.06f; // -6% per wrong character
     [SerializeField] private float barSmoothSpeed = 10f;
 
-    [Header("Random Code Settings")]
+    [Header("Random Code & Loading Animation")]
     [SerializeField] private int codeLength = 12;
     [SerializeField] private bool caseSensitive = false;
-    [SerializeField] private float nextCodeDelay = 0.25f;
+    [SerializeField] private float loadingDuration = 1.2f;
+    [SerializeField] private float dotStepInterval = 0.25f;
+    [SerializeField] private string loadingPrefix = "LOADING NEXT SEQUENCE";
     private const string AllowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
     [Header("Highlight Colors (Hex)")]
@@ -29,9 +31,11 @@ public class SciFiTerminalHUD : MonoBehaviour
     [SerializeField] private string correctColorHex = "#7DF9FF"; // Light Cyan
     [SerializeField] private string wrongColorHex = "#FF3B3B"; // Red
 
-    [Header("Input Prompt Settings")]
+    [Header("Input Prompt & Feedback")]
     [SerializeField] private string promptPrefix = "> ";
     [SerializeField] private bool showBlinkingCursor = true;
+    [SerializeField] private float errorShakeDuration = 0.12f;
+    [SerializeField] private float errorShakeMagnitude = 6f;
 
     private string targetCode = "";
     private string currentTypedText = "";
@@ -39,8 +43,9 @@ public class SciFiTerminalHUD : MonoBehaviour
     private float displayedProgress = 0f;
     private float cursorTimer;
     private bool cursorVisible = true;
-    private bool isTransitioningCode = false;
+    private bool isLoadingNextCode = false;
     private bool isHackComplete = false;
+    private Vector2 originalTargetPos;
 
     private void OnEnable()
     {
@@ -56,6 +61,9 @@ public class SciFiTerminalHUD : MonoBehaviour
 
     private void Start()
     {
+        if (targetCodeText != null)
+            originalTargetPos = targetCodeText.rectTransform.anchoredPosition;
+
         currentProgress = 0f;
         displayedProgress = 0f;
         GenerateRandomCode();
@@ -65,14 +73,13 @@ public class SciFiTerminalHUD : MonoBehaviour
 
     private void Update()
     {
-        // Smoothly animate the progress bar fill
         if (!Mathf.Approximately(displayedProgress, currentProgress))
         {
             displayedProgress = Mathf.MoveTowards(displayedProgress, currentProgress, barSmoothSpeed * Time.deltaTime);
             UpdateProgressUI(false);
         }
 
-        if (!showBlinkingCursor || terminalInputText == null || isHackComplete) return;
+        if (!showBlinkingCursor || terminalInputText == null || isHackComplete || isLoadingNextCode) return;
 
         cursorTimer += Time.deltaTime;
         if (cursorTimer >= 0.5f)
@@ -94,14 +101,13 @@ public class SciFiTerminalHUD : MonoBehaviour
 
         targetCode = sb.ToString();
         currentTypedText = "";
-        isTransitioningCode = false;
+        isLoadingNextCode = false;
     }
 
     private void OnTextInput(char character)
     {
-        if (isHackComplete || isTransitioningCode) return;
+        if (isHackComplete || isLoadingNextCode) return;
 
-        // Handle Backspace
         if (character == '\b')
         {
             if (currentTypedText.Length > 0)
@@ -109,7 +115,6 @@ public class SciFiTerminalHUD : MonoBehaviour
                 currentTypedText = currentTypedText.Substring(0, currentTypedText.Length - 1);
             }
         }
-        // Handle normal alphanumeric / symbol input
         else if (!char.IsControl(character) && currentTypedText.Length < targetCode.Length)
         {
             char normalizedChar = caseSensitive ? character : char.ToUpper(character);
@@ -122,11 +127,16 @@ public class SciFiTerminalHUD : MonoBehaviour
 
             currentTypedText += normalizedChar;
 
-            // Adjust overall completion percentage based on match or error
             if (isMatch)
+            {
                 currentProgress = Mathf.Clamp01(currentProgress + correctStepGain);
+            }
             else
+            {
                 currentProgress = Mathf.Clamp01(currentProgress - errorStepPenalty);
+                StopCoroutine(nameof(ShakeTargetRoutine));
+                StartCoroutine(nameof(ShakeTargetRoutine));
+            }
         }
 
         cursorVisible = true;
@@ -137,28 +147,67 @@ public class SciFiTerminalHUD : MonoBehaviour
 
     private void CheckCodeFinished()
     {
-        // Trigger when the player reaches the end of the current code line
-        if (currentTypedText.Length < targetCode.Length) return;
-
         if (currentProgress >= 1f)
         {
             isHackComplete = true;
             RefreshInputDisplay();
-            Debug.Log("100% Hack Complete!");
-            // Trigger win state / close computer screen here
+            if (targetCodeText != null)
+                targetCodeText.text = $"<color={correctColorHex}>ACCESS GRANTED</color>";
             return;
         }
 
-        // Load a new random code after a brief pause so the player sees the final character highlight
-        StartCoroutine(LoadNextCodeRoutine());
+        // If the player finished typing the current code line and hasn't reached 100%, load a new code
+        if (currentTypedText.Length >= targetCode.Length)
+        {
+            StartCoroutine(LoadNextCodeWithDotsRoutine());
+        }
     }
 
-    private IEnumerator LoadNextCodeRoutine()
+    private IEnumerator LoadNextCodeWithDotsRoutine()
     {
-        isTransitioningCode = true;
-        yield return new WaitForSeconds(nextCodeDelay);
+        isLoadingNextCode = true;
+
+        // Brief pause so the final typed character's color is visible
+        yield return new WaitForSeconds(0.15f);
+
+        currentTypedText = "";
+        if (terminalInputText != null)
+            terminalInputText.text = promptPrefix;
+
+        float elapsed = 0f;
+        int dotCount = 1;
+
+        while (elapsed < loadingDuration)
+        {
+            if (targetCodeText != null)
+            {
+                string dots = new string('.', dotCount);
+                targetCodeText.text = $"<color={correctColorHex}>{loadingPrefix}{dots}</color>";
+            }
+
+            dotCount = (dotCount % 3) + 1; // Cycles 1 (.) -> 2 (..) -> 3 (...) -> 1 (.)
+            yield return new WaitForSeconds(dotStepInterval);
+            elapsed += dotStepInterval;
+        }
+
         GenerateRandomCode();
         RefreshDisplay();
+    }
+
+    private IEnumerator ShakeTargetRoutine()
+    {
+        if (targetCodeText == null) yield break;
+
+        float elapsed = 0f;
+        while (elapsed < errorShakeDuration)
+        {
+            float offsetX = Random.Range(-errorShakeMagnitude, errorShakeMagnitude);
+            targetCodeText.rectTransform.anchoredPosition = originalTargetPos + new Vector2(offsetX, 0f);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        targetCodeText.rectTransform.anchoredPosition = originalTargetPos;
     }
 
     private void RefreshDisplay()
@@ -200,7 +249,7 @@ public class SciFiTerminalHUD : MonoBehaviour
     {
         if (terminalInputText == null) return;
 
-        string cursor = (showBlinkingCursor && cursorVisible && !isHackComplete) ? "_" : "";
+        string cursor = (showBlinkingCursor && cursorVisible && !isHackComplete && !isLoadingNextCode) ? "_" : "";
         terminalInputText.text = promptPrefix + currentTypedText + cursor;
     }
 
