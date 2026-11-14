@@ -132,6 +132,7 @@ GameObject:
   - component: {fileID: 606198085}
   - component: {fileID: 606198084}
   - component: {fileID: 606198088}
+  - component: {fileID: 606198089}
   m_Layer: 7
   m_Name: Cube
   m_TagString: Untagged
@@ -244,6 +245,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2ca129bd8ad4b2548b30da328c5c7f03, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::TestInteractable
+--- !u!114 &606198089
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 606198083}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a2355d5f1187f442821a96cee7279fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractableOutline
+  outlineMaterial: {fileID: 2100000, guid: 63f70abb0cdbc934aa02fce56b30d9e5, type: 2}
 --- !u!1 &1709746188
 GameObject:
   m_ObjectHideFlags: 0
