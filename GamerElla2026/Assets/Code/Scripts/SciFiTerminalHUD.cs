@@ -1,0 +1,266 @@
+using System.Collections;
+using System.Text;
+using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.UI;
+using TMPro;
+
+public class SciFiTerminalHUD : MonoBehaviour
+{
+    [Header("UI Text References")]
+    [SerializeField] private TextMeshProUGUI targetCodeText;
+    [SerializeField] private TextMeshProUGUI terminalInputText;
+
+    [Header("Progress Bar & Percentage")]
+    [SerializeField] private Image progressBarFill;
+    [SerializeField] private TextMeshProUGUI progressPercentText;
+    [SerializeField] private float correctStepGain = 0.04f;  // +4% per matching character
+    [SerializeField] private float errorStepPenalty = 0.06f; // -6% per wrong character
+    [SerializeField] private float barSmoothSpeed = 10f;
+
+    [Header("Random Code & Loading Animation")]
+    [SerializeField] private int codeLength = 12;
+    [SerializeField] private bool caseSensitive = false;
+    [SerializeField] private float loadingDuration = 1.2f;
+    [SerializeField] private float dotStepInterval = 0.25f;
+    [SerializeField] private string loadingPrefix = "LOADING NEXT SEQUENCE";
+    private const string AllowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+
+    [Header("Highlight Colors (Hex)")]
+    [SerializeField] private string untypedColorHex = "#B0B8C0"; // Light Gray
+    [SerializeField] private string correctColorHex = "#7DF9FF"; // Light Cyan
+    [SerializeField] private string wrongColorHex = "#FF3B3B"; // Red
+
+    [Header("Input Prompt & Feedback")]
+    [SerializeField] private string promptPrefix = "> ";
+    [SerializeField] private bool showBlinkingCursor = true;
+    [SerializeField] private float errorShakeDuration = 0.12f;
+    [SerializeField] private float errorShakeMagnitude = 6f;
+
+    private string targetCode = "";
+    private string currentTypedText = "";
+    private float currentProgress = 0f;
+    private float displayedProgress = 0f;
+    private float cursorTimer;
+    private bool cursorVisible = true;
+    private bool isLoadingNextCode = false;
+    private bool isHackComplete = false;
+    private Vector2 originalTargetPos;
+
+    private void OnEnable()
+    {
+        if (Keyboard.current != null)
+            Keyboard.current.onTextInput += OnTextInput;
+    }
+
+    private void OnDisable()
+    {
+        if (Keyboard.current != null)
+            Keyboard.current.onTextInput -= OnTextInput;
+    }
+
+    private void Start()
+    {
+        if (targetCodeText != null)
+            originalTargetPos = targetCodeText.rectTransform.anchoredPosition;
+
+        currentProgress = 0f;
+        displayedProgress = 0f;
+        GenerateRandomCode();
+        RefreshDisplay();
+        UpdateProgressUI(true);
+    }
+
+    private void Update()
+    {
+        if (!Mathf.Approximately(displayedProgress, currentProgress))
+        {
+            displayedProgress = Mathf.MoveTowards(displayedProgress, currentProgress, barSmoothSpeed * Time.deltaTime);
+            UpdateProgressUI(false);
+        }
+
+        if (!showBlinkingCursor || terminalInputText == null || isHackComplete || isLoadingNextCode) return;
+
+        cursorTimer += Time.deltaTime;
+        if (cursorTimer >= 0.5f)
+        {
+            cursorTimer = 0f;
+            cursorVisible = !cursorVisible;
+            RefreshInputDisplay();
+        }
+    }
+
+    private void GenerateRandomCode()
+    {
+        StringBuilder sb = new StringBuilder(codeLength);
+        for (int i = 0; i < codeLength; i++)
+        {
+            int index = Random.Range(0, AllowedChars.Length);
+            sb.Append(AllowedChars[index]);
+        }
+
+        targetCode = sb.ToString();
+        currentTypedText = "";
+        isLoadingNextCode = false;
+    }
+
+    private void OnTextInput(char character)
+    {
+        if (isHackComplete || isLoadingNextCode) return;
+
+        if (character == '\b')
+        {
+            if (currentTypedText.Length > 0)
+            {
+                currentTypedText = currentTypedText.Substring(0, currentTypedText.Length - 1);
+            }
+        }
+        else if (!char.IsControl(character) && currentTypedText.Length < targetCode.Length)
+        {
+            char normalizedChar = caseSensitive ? character : char.ToUpper(character);
+            int charIndex = currentTypedText.Length;
+            char expectedChar = targetCode[charIndex];
+
+            bool isMatch = caseSensitive
+                ? normalizedChar == expectedChar
+                : char.ToUpper(normalizedChar) == char.ToUpper(expectedChar);
+
+            currentTypedText += normalizedChar;
+
+            if (isMatch)
+            {
+                currentProgress = Mathf.Clamp01(currentProgress + correctStepGain);
+            }
+            else
+            {
+                currentProgress = Mathf.Clamp01(currentProgress - errorStepPenalty);
+                StopCoroutine(nameof(ShakeTargetRoutine));
+                StartCoroutine(nameof(ShakeTargetRoutine));
+            }
+        }
+
+        cursorVisible = true;
+        cursorTimer = 0f;
+        RefreshDisplay();
+        CheckCodeFinished();
+    }
+
+    private void CheckCodeFinished()
+    {
+        if (currentProgress >= 1f)
+        {
+            isHackComplete = true;
+            RefreshInputDisplay();
+            if (targetCodeText != null)
+                targetCodeText.text = $"<color={correctColorHex}>ACCESS GRANTED</color>";
+            return;
+        }
+
+        // If the player finished typing the current code line and hasn't reached 100%, load a new code
+        if (currentTypedText.Length >= targetCode.Length)
+        {
+            StartCoroutine(LoadNextCodeWithDotsRoutine());
+        }
+    }
+
+    private IEnumerator LoadNextCodeWithDotsRoutine()
+    {
+        isLoadingNextCode = true;
+
+        // Brief pause so the final typed character's color is visible
+        yield return new WaitForSeconds(0.15f);
+
+        currentTypedText = "";
+        if (terminalInputText != null)
+            terminalInputText.text = promptPrefix;
+
+        float elapsed = 0f;
+        int dotCount = 1;
+
+        while (elapsed < loadingDuration)
+        {
+            if (targetCodeText != null)
+            {
+                string dots = new string('.', dotCount);
+                targetCodeText.text = $"<color={correctColorHex}>{loadingPrefix}{dots}</color>";
+            }
+
+            dotCount = (dotCount % 3) + 1; // Cycles 1 (.) -> 2 (..) -> 3 (...) -> 1 (.)
+            yield return new WaitForSeconds(dotStepInterval);
+            elapsed += dotStepInterval;
+        }
+
+        GenerateRandomCode();
+        RefreshDisplay();
+    }
+
+    private IEnumerator ShakeTargetRoutine()
+    {
+        if (targetCodeText == null) yield break;
+
+        float elapsed = 0f;
+        while (elapsed < errorShakeDuration)
+        {
+            float offsetX = Random.Range(-errorShakeMagnitude, errorShakeMagnitude);
+            targetCodeText.rectTransform.anchoredPosition = originalTargetPos + new Vector2(offsetX, 0f);
+            elapsed += Time.deltaTime;
+            yield return null;
+        }
+
+        targetCodeText.rectTransform.anchoredPosition = originalTargetPos;
+    }
+
+    private void RefreshDisplay()
+    {
+        RefreshTargetDisplay();
+        RefreshInputDisplay();
+    }
+
+    private void RefreshTargetDisplay()
+    {
+        if (targetCodeText == null) return;
+
+        StringBuilder formatted = new StringBuilder();
+
+        for (int i = 0; i < targetCode.Length; i++)
+        {
+            char targetChar = targetCode[i];
+
+            if (i < currentTypedText.Length)
+            {
+                char typedChar = currentTypedText[i];
+                bool isMatch = caseSensitive
+                    ? typedChar == targetChar
+                    : char.ToUpper(typedChar) == char.ToUpper(targetChar);
+
+                string color = isMatch ? correctColorHex : wrongColorHex;
+                formatted.Append($"<color={color}>{targetChar}</color>");
+            }
+            else
+            {
+                formatted.Append($"<color={untypedColorHex}>{targetChar}</color>");
+            }
+        }
+
+        targetCodeText.text = formatted.ToString();
+    }
+
+    private void RefreshInputDisplay()
+    {
+        if (terminalInputText == null) return;
+
+        string cursor = (showBlinkingCursor && cursorVisible && !isHackComplete && !isLoadingNextCode) ? "_" : "";
+        terminalInputText.text = promptPrefix + currentTypedText + cursor;
+    }
+
+    private void UpdateProgressUI(bool instant)
+    {
+        float value = instant ? currentProgress : displayedProgress;
+
+        if (progressBarFill != null)
+            progressBarFill.fillAmount = value;
+
+        if (progressPercentText != null)
+            progressPercentText.text = $"{Mathf.RoundToInt(value * 100f)}%";
+    }
+}
