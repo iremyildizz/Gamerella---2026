@@ -24,7 +24,7 @@ public class PlayerInteractor : MonoBehaviour
 
     void Start()
     {
-        interactAction = InputSystem.actions.FindAction("Interact");
+        interactAction = InputSystem.actions.FindAction("Click");
         UpdateCrosshair(false);
     }
 
