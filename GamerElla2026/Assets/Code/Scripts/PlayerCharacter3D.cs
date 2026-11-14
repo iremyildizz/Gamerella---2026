@@ -3,7 +3,7 @@ using UnityEngine.InputSystem;
 
 
 [RequireComponent(typeof(CharacterController))]
-public class PlayerMovement : MonoBehaviour {
+public class PlayerCharacter3D : MonoBehaviour {
 
     public float moveSpeed = 5f;
     private InputAction moveAction;
