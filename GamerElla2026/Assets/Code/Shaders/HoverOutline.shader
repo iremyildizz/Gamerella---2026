@@ -3,7 +3,7 @@ Shader "Custom/HoverOutline"
     Properties
     {
         _OutlineColor ("Outline Color", Color) = (1.0, 1.0, 1.0, 1.0)
-        _OutlineWidth ("Outline Width", Range(0.0, 0.1)) = 0.02
+        _OutlineWidth ("Outline Width (meters)", Range(0.0, 0.1)) = 0.01
     }
     SubShader
     {
@@ -34,8 +34,12 @@ Shader "Custom/HoverOutline"
             v2f vert (appdata v)
             {
                 v2f o;
-                v.vertex.xyz += normalize(v.normal) * _OutlineWidth;
-                o.pos = UnityObjectToClipPos(v.vertex);
+                // Extrude in WORLD space so the width is in meters and does
+                // not depend on the model's scale or import units.
+                float3 worldPos = mul(unity_ObjectToWorld, v.vertex).xyz;
+                float3 worldNormal = normalize(UnityObjectToWorldNormal(v.normal));
+                worldPos += worldNormal * _OutlineWidth;
+                o.pos = UnityWorldToClipPos(worldPos);
                 return o;
             }
 

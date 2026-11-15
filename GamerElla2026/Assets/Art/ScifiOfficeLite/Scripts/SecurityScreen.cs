@@ -93,6 +93,82 @@ public class SecurityScreen : MonoBehaviour
         if (s == State.Empty && recDot != null) recDot.SetActive(false);
     }
 
+    // ---------- Laser zap ----------
+
+    static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
+    MeshRenderer flashQuad;
+    Light flashLight;
+    MaterialPropertyBlock flashBlock;
+    Coroutine flashRoutine;
+
+    public bool HasSilhouette => !IsFree;
+
+    // Plays a white flash over this screen and removes the silhouette if
+    // there is one. Returns true if a silhouette was removed.
+    public bool Zap(Material flashMaterial, float duration, AnimationCurve alpha,
+                    float lightIntensity, float lightRange)
+    {
+        bool hadSilhouette = HasSilhouette;
+        if (hadSilhouette) Clear();   // hidden under the flash
+
+        if (flashMaterial != null)
+        {
+            EnsureFlashObjects(flashMaterial, lightRange);
+            if (flashRoutine != null) StopCoroutine(flashRoutine);
+            flashRoutine = StartCoroutine(Flash(duration, alpha, lightIntensity));
+        }
+        return hadSilhouette;
+    }
+
+    void EnsureFlashObjects(Material flashMaterial, float lightRange)
+    {
+        if (flashQuad == null)
+        {
+            var go = GameObject.CreatePrimitive(PrimitiveType.Quad);
+            go.name = "LaserFlash";
+            Destroy(go.GetComponent<Collider>());   // must not block raycasts
+
+            var src = screen.transform;
+            go.transform.SetParent(src.parent, false);
+            go.transform.localPosition = src.localPosition;
+            go.transform.localRotation = src.localRotation;
+            go.transform.localScale = src.localScale;
+            // A quad's visible side faces -forward: push it toward the viewer
+            // so it covers the image, the red dot and the label.
+            go.transform.position -= src.forward * 0.01f;
+
+            flashQuad = go.GetComponent<MeshRenderer>();
+            flashQuad.shadowCastingMode = UnityEngine.Rendering.ShadowCastingMode.Off;
+            flashQuad.receiveShadows = false;
+
+            flashLight = go.AddComponent<Light>();
+            flashLight.type = LightType.Point;
+            flashLight.color = Color.white;
+            flashLight.shadows = LightShadows.None;
+
+            flashBlock = new MaterialPropertyBlock();
+            go.SetActive(false);
+        }
+        flashQuad.sharedMaterial = flashMaterial;
+        flashLight.range = lightRange;
+    }
+
+    IEnumerator Flash(float duration, AnimationCurve alpha, float lightIntensity)
+    {
+        var go = flashQuad.gameObject;
+        go.SetActive(true);
+        for (float t = 0f; t < 1f; t += Time.deltaTime / Mathf.Max(0.01f, duration))
+        {
+            float a = Mathf.Clamp01(alpha.Evaluate(t));
+            flashBlock.SetColor(BaseColorId, new Color(1f, 1f, 1f, a));
+            flashQuad.SetPropertyBlock(flashBlock);
+            flashLight.intensity = lightIntensity * a;
+            yield return null;
+        }
+        go.SetActive(false);
+        flashRoutine = null;
+    }
+
     static Transform FindChild(Transform parent, string childName)
     {
         foreach (Transform t in parent.GetComponentsInChildren<Transform>(true))
