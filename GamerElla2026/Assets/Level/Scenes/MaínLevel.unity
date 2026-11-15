@@ -379,7 +379,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d48949a40463ebb41a925df9871da7c9, type: 3}
   - {fileID: 8300000, guid: abcb37a2a3946c640a49b744af624398, type: 3}
   loopFarSound: 0
-  farVolume: 0.6
+  farVolume: 0.3
   closeSounds:
   - {fileID: 8300000, guid: 58e37e3fc8b79ab4d8246c962f5dfb98, type: 3}
   - {fileID: 8300000, guid: 4d56bb6f14a65da4ab21e4075f9b816f, type: 3}
@@ -399,7 +399,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a306dcb2b5324434a9130e3db6fac4f2, type: 3}
   - {fileID: 8300000, guid: 709359978dc47944189fc5f9ad8a59e5, type: 3}
   loopCloseSound: 1
-  closeVolume: 1
+  closeVolume: 0.5
   zombieDyingSounds:
   - {fileID: 8300000, guid: 7b948207594a15a47af24bcdc2d04511, type: 3}
   - {fileID: 8300000, guid: 6620f7228db57e8489fdb32acd3c7fc1, type: 3}
@@ -410,7 +410,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 401e04bd3c6394643a696ccf64218780, type: 3}
   - {fileID: 8300000, guid: c9436cdcfdc2ba94e88a325a5def2b1c, type: 3}
   - {fileID: 8300000, guid: 8a6060e8fe887c349910bf2a70d1cd1e, type: 3}
-  deathVolume: 1
+  deathVolume: 0.5
   randomZombieSounds:
   - {fileID: 8300000, guid: 58e37e3fc8b79ab4d8246c962f5dfb98, type: 3}
   - {fileID: 8300000, guid: 4d56bb6f14a65da4ab21e4075f9b816f, type: 3}
@@ -433,9 +433,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: af6ba7f6c088be54f8e06dd5a7909223, type: 3}
   enableRandomSounds: 1
   onlyWhenZombiePresent: 1
-  randomIntervalMin: 4
-  randomIntervalMax: 10
-  randomSoundVolume: 0.6
+  randomIntervalMin: 10
+  randomIntervalMax: 30
+  randomSoundVolume: 0.3
   pitchRange: {x: 0.93, y: 1.07}
 --- !u!1 &48342799
 GameObject:
@@ -3903,15 +3903,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 625614528}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.39342555}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1145908718}
+  m_Father: {fileID: 1240233361}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 120, y: 36}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 198, y: 73}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &625614530
@@ -5313,15 +5313,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 849060581}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.39342555}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1145908718}
+  m_Father: {fileID: 1240233361}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 120, y: 50}
+  m_AnchoredPosition: {x: -392, y: 51.399994}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &849060583
@@ -5410,7 +5410,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 0, y: 0, z: 0, w: 0}
+  m_margin: {x: 0, y: -13.7890625, z: 0, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -6134,7 +6134,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d48949a40463ebb41a925df9871da7c9, type: 3}
   - {fileID: 8300000, guid: abcb37a2a3946c640a49b744af624398, type: 3}
   loopFarSound: 0
-  farVolume: 0.6
+  farVolume: 0.3
   closeSounds:
   - {fileID: 8300000, guid: 58e37e3fc8b79ab4d8246c962f5dfb98, type: 3}
   - {fileID: 8300000, guid: 4d56bb6f14a65da4ab21e4075f9b816f, type: 3}
@@ -6154,7 +6154,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a306dcb2b5324434a9130e3db6fac4f2, type: 3}
   - {fileID: 8300000, guid: 709359978dc47944189fc5f9ad8a59e5, type: 3}
   loopCloseSound: 1
-  closeVolume: 1
+  closeVolume: 0.5
   zombieDyingSounds:
   - {fileID: 8300000, guid: 7b948207594a15a47af24bcdc2d04511, type: 3}
   - {fileID: 8300000, guid: 6620f7228db57e8489fdb32acd3c7fc1, type: 3}
@@ -6188,9 +6188,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: af6ba7f6c088be54f8e06dd5a7909223, type: 3}
   enableRandomSounds: 1
   onlyWhenZombiePresent: 1
-  randomIntervalMin: 4
-  randomIntervalMax: 10
-  randomSoundVolume: 0.6
+  randomIntervalMin: 10
+  randomIntervalMax: 30
+  randomSoundVolume: 0.3
   pitchRange: {x: 0.93, y: 1.07}
 --- !u!1001 &950888059
 PrefabInstance:
@@ -7512,13 +7512,13 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 5715265458410289990, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
       insertIndex: -1
       addedObject: {fileID: 167288766}
-    - targetCorrespondingSourceObject: {fileID: 5715265458410289990, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5038192335932630824, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
       insertIndex: -1
       addedObject: {fileID: 625614529}
-    - targetCorrespondingSourceObject: {fileID: 5715265458410289990, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5038192335932630824, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1994951222}
-    - targetCorrespondingSourceObject: {fileID: 5715265458410289990, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
+    - targetCorrespondingSourceObject: {fileID: 5038192335932630824, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
       insertIndex: -1
       addedObject: {fileID: 849060582}
     m_AddedComponents:
@@ -8293,6 +8293,11 @@ PrefabInstance:
       addedObject: {fileID: 1319559605}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+--- !u!224 &1240233361 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 5038192335932630824, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
+  m_PrefabInstance: {fileID: 1145908716}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1253342743
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8778,7 +8783,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d48949a40463ebb41a925df9871da7c9, type: 3}
   - {fileID: 8300000, guid: abcb37a2a3946c640a49b744af624398, type: 3}
   loopFarSound: 0
-  farVolume: 0.6
+  farVolume: 0.3
   closeSounds:
   - {fileID: 8300000, guid: 58e37e3fc8b79ab4d8246c962f5dfb98, type: 3}
   - {fileID: 8300000, guid: 4d56bb6f14a65da4ab21e4075f9b816f, type: 3}
@@ -8809,7 +8814,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 401e04bd3c6394643a696ccf64218780, type: 3}
   - {fileID: 8300000, guid: c9436cdcfdc2ba94e88a325a5def2b1c, type: 3}
   - {fileID: 8300000, guid: 8a6060e8fe887c349910bf2a70d1cd1e, type: 3}
-  deathVolume: 1
+  deathVolume: 0.5
   randomZombieSounds:
   - {fileID: 8300000, guid: 58e37e3fc8b79ab4d8246c962f5dfb98, type: 3}
   - {fileID: 8300000, guid: 4d56bb6f14a65da4ab21e4075f9b816f, type: 3}
@@ -8832,9 +8837,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: af6ba7f6c088be54f8e06dd5a7909223, type: 3}
   enableRandomSounds: 1
   onlyWhenZombiePresent: 1
-  randomIntervalMin: 4
-  randomIntervalMax: 10
-  randomSoundVolume: 0.6
+  randomIntervalMin: 10
+  randomIntervalMax: 30
+  randomSoundVolume: 0.3
   pitchRange: {x: 0.93, y: 1.07}
 --- !u!1 &1299297238
 GameObject:
@@ -11262,7 +11267,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d48949a40463ebb41a925df9871da7c9, type: 3}
   - {fileID: 8300000, guid: abcb37a2a3946c640a49b744af624398, type: 3}
   loopFarSound: 0
-  farVolume: 0.6
+  farVolume: 0.3
   closeSounds:
   - {fileID: 8300000, guid: 58e37e3fc8b79ab4d8246c962f5dfb98, type: 3}
   - {fileID: 8300000, guid: 4d56bb6f14a65da4ab21e4075f9b816f, type: 3}
@@ -11293,7 +11298,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: 401e04bd3c6394643a696ccf64218780, type: 3}
   - {fileID: 8300000, guid: c9436cdcfdc2ba94e88a325a5def2b1c, type: 3}
   - {fileID: 8300000, guid: 8a6060e8fe887c349910bf2a70d1cd1e, type: 3}
-  deathVolume: 1
+  deathVolume: 0.5
   randomZombieSounds:
   - {fileID: 8300000, guid: 58e37e3fc8b79ab4d8246c962f5dfb98, type: 3}
   - {fileID: 8300000, guid: 4d56bb6f14a65da4ab21e4075f9b816f, type: 3}
@@ -11316,9 +11321,9 @@ MonoBehaviour:
   - {fileID: 8300000, guid: af6ba7f6c088be54f8e06dd5a7909223, type: 3}
   enableRandomSounds: 1
   onlyWhenZombiePresent: 1
-  randomIntervalMin: 4
-  randomIntervalMax: 10
-  randomSoundVolume: 0.6
+  randomIntervalMin: 10
+  randomIntervalMax: 30
+  randomSoundVolume: 0.3
   pitchRange: {x: 0.93, y: 1.07}
 --- !u!1001 &1664221672
 PrefabInstance:
@@ -12214,7 +12219,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1658540371440678497, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000030517578
+      value: -0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 2631194450527708934, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
       propertyPath: m_AnchorMax.x
@@ -12222,6 +12227,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2631194450527708934, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2631194450527708934, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2907925454337230493, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
@@ -13180,15 +13189,15 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1994951221}
   m_LocalRotation: {x: -0, y: -0, z: -0.24741544, w: 0.9689095}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: 0, z: -0.39342555}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
-  m_Father: {fileID: 1145908718}
+  m_Father: {fileID: 1240233361}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -28.649}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 56, y: 37}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 73, y: 71}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1994951223
