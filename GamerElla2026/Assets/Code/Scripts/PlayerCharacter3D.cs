@@ -12,6 +12,9 @@ public class PlayerCharacter3D : MonoBehaviour
     public float mouseSensitivity = 0.15f;
     public Transform playerCamera;
 
+    [Header("Hunger")]
+    public PlayerHunger playerHunger;
+
     private CharacterController controller;
     private InputAction moveAction;
     private InputAction lookAction;

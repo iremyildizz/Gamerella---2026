@@ -13,7 +13,10 @@ public class Fridge : MonoBehaviour, IInteractable
     [Header("Eating Hold Settings")]
     [Tooltip("Drag the LoadingRing UI Image here")]
     public Image loadingRing;
-    public float eatDuration = 5f;
+    public float eatDuration = 3f;
+
+    [Header("Player Reference")]
+    public PlayerCharacter3D player;
 
     private Quaternion closedRotation;
     private Quaternion openRotation;
@@ -29,6 +32,9 @@ public class Fridge : MonoBehaviour, IInteractable
             Debug.LogWarning($"DoorHinge not assigned on {gameObject.name}");
             return;
         }
+
+        if (player == null)
+            player = FindAnyObjectByType<PlayerCharacter3D>();
 
         closedRotation = doorHinge.localRotation;
         openRotation = closedRotation * Quaternion.Euler(0f, openAngle, 0f);
@@ -78,7 +84,10 @@ public class Fridge : MonoBehaviour, IInteractable
 
     private void OnFinishedEating()
     {
-        Debug.Log("Finished eating");
+        if (player.playerHunger != null)
+        {
+            player.playerHunger.ReplenishHunger();
+        }
     }
 
     public void Interact()
