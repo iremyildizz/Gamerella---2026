@@ -1,6 +1,7 @@
 using System.Collections;
 using UnityEngine;
 using UnityEngine.Events;
+using UnityEngine.UI;
 
 // Put on a switch (with a collider, on the Interactable layer).
 // Clicking it fires the shared laser at the linked camera screen.
@@ -26,12 +27,16 @@ public class SecuritySwitch : MonoBehaviour, IInteractable
 
     public SecurityScreen Target => target;
 
+    private InteractableOutline outline;
+
     void Awake()
     {
         if (laser == null) laser = FindFirstObjectByType<LaserSystem>();
         if (laser == null) Debug.LogWarning("No LaserSystem in the scene", this);
         if (target == null) Debug.LogWarning($"{name}: no camera assigned", this);
         if (lever != null) leverRest = lever.localRotation;
+
+        outline = GetComponent<InteractableOutline>();
     }
 
     public void Interact()
@@ -53,6 +58,10 @@ public class SecuritySwitch : MonoBehaviour, IInteractable
         }
     }
 
+    public float GetCooldown() {
+        return laser.CooldownRemaining;
+    }
+
     IEnumerator FlipLever()
     {
         Quaternion down = leverRest * Quaternion.Euler(leverRotation);
@@ -70,5 +79,11 @@ public class SecuritySwitch : MonoBehaviour, IInteractable
             yield return null;
         }
         lever.localRotation = to;
+    }
+
+    public void SetOutlineEnabled(bool isEnabled) {
+        if (outline != null) {
+            outline.enabled = isEnabled;
+        }
     }
 }
