@@ -11,6 +11,8 @@ public class SecurityScreen : MonoBehaviour
     [Tooltip("Leave empty to use the child object named \"RecDot\" of this camera")]
     [SerializeField] GameObject recDot;
     [SerializeField] float blinkInterval = 0.5f;
+    [Tooltip("Seconds of static when the image changes (needs the Custom/SurveillanceFeed shader). 0 = off")]
+    [SerializeField, Min(0f)] float switchStaticDuration = 0.35f;
 
     [Header("Closeness Stage Events (Per Camera)")]
     public UnityEvent onDetectedFar;
@@ -83,6 +85,7 @@ public class SecurityScreen : MonoBehaviour
 
     void SetState(State s)
     {
+        bool changed = s != Current;
         Current = s;
         var mats = screen.sharedMaterials;
         if (mats.Length == 0) mats = new Material[1];
@@ -94,6 +97,36 @@ public class SecurityScreen : MonoBehaviour
         };
         screen.sharedMaterials = mats;
         if (s == State.Empty && recDot != null) recDot.SetActive(false);
+        if (changed && Application.isPlaying && isActiveAndEnabled && switchStaticDuration > 0f)
+        {
+            if (staticRoutine != null) StopCoroutine(staticRoutine);
+            staticRoutine = StartCoroutine(SwitchStatic());
+        }
+    }
+
+    // ---------- Static when the image changes ----------
+
+    static readonly int StaticBurstId = Shader.PropertyToID("_StaticBurst");
+    MaterialPropertyBlock staticBlock;
+    Coroutine staticRoutine;
+
+    IEnumerator SwitchStatic()
+    {
+        staticBlock ??= new MaterialPropertyBlock();
+        for (float t = 0f; t < 1f; t += Time.deltaTime / switchStaticDuration)
+        {
+            SetStaticBurst(1f - t * t);   // full static, fading out
+            yield return null;
+        }
+        SetStaticBurst(0f);
+        staticRoutine = null;
+    }
+
+    void SetStaticBurst(float amount)
+    {
+        screen.GetPropertyBlock(staticBlock);
+        staticBlock.SetFloat(StaticBurstId, amount);
+        screen.SetPropertyBlock(staticBlock);
     }
 
     // ---------- Laser zap ----------
