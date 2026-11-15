@@ -40,6 +40,17 @@ public class SciFiTerminalHUD : MonoBehaviour
     [SerializeField] private float errorShakeDuration = 0.12f;
     [SerializeField] private float errorShakeMagnitude = 6f;
 
+    [Header("Keystroke Audio")]
+    [SerializeField] private AudioSource terminalAudioSource;
+    [SerializeField] private AudioSource keystrokeAudioSource;
+    [SerializeField] private AudioClip[] keystrokeSounds;
+    [SerializeField] private AudioClip errorSound;
+    [SerializeField] private AudioClip accessGrantedSound;
+    [SerializeField] private Vector2 pitchRange = new Vector2(0.94f, 1.06f);
+    [SerializeField] private Vector2 volumeRange = new Vector2(0.75f, 1.0f);
+    [SerializeField, Range(0f, 1f)] private float alertVolume = 1f;
+
+
     private string targetCode = "";
     private string currentTypedText = "";
     private float currentProgress = 0f;
@@ -57,6 +68,8 @@ public class SciFiTerminalHUD : MonoBehaviour
     private string KeyTargetCode => $"{terminalSaveId}_TargetCode";
     private string KeyTypedText => $"{terminalSaveId}_TypedText";
     private string KeySolved => $"{terminalSaveId}_IsSolved";
+
+    private int lastKeySoundIndex = -1;
 
     private void OnEnable()
     {
@@ -157,7 +170,9 @@ public class SciFiTerminalHUD : MonoBehaviour
 
     private void OnTextInput(char character)
     {
-        if (isHackComplete || isLoadingNextCode) return;
+        if (isHackComplete || isLoadingNextCode) { return; }
+
+        PlayKeystrokeSound();
 
         if (character == '\b')
         {
@@ -184,6 +199,7 @@ public class SciFiTerminalHUD : MonoBehaviour
             }
             else
             {
+                PlayErrorSound();
                 currentProgress = Mathf.Clamp01(currentProgress - errorStepPenalty);
                 StopCoroutine(nameof(ShakeTargetRoutine));
                 StartCoroutine(nameof(ShakeTargetRoutine));
@@ -268,6 +284,7 @@ public class SciFiTerminalHUD : MonoBehaviour
         {
             if (targetCodeText != null)
                 targetCodeText.text = $"<color={correctColorHex}>ACCESS GRANTED</color>";
+            PlayAccessGrantedSound();
             RefreshInputDisplay();
             return;
         }
@@ -322,6 +339,46 @@ public class SciFiTerminalHUD : MonoBehaviour
 
         if (progressPercentText != null)
             progressPercentText.text = $"{Mathf.RoundToInt(value * 100f)}%";
+    }
+
+    private void PlayKeystrokeSound()
+    {
+        if (keystrokeAudioSource == null || keystrokeSounds == null || keystrokeSounds.Length == 0)
+            return;
+
+        int index = Random.Range(0, keystrokeSounds.Length);
+
+        // Avoid playing the exact same key click twice in a row
+        if (keystrokeSounds.Length > 1 && index == lastKeySoundIndex)
+            index = (index + 1) % keystrokeSounds.Length;
+
+        lastKeySoundIndex = index;
+
+        AudioClip clip = keystrokeSounds[index];
+        if (clip != null)
+        {
+            keystrokeAudioSource.pitch = Random.Range(pitchRange.x, pitchRange.y);
+            float volume = Random.Range(volumeRange.x, volumeRange.y);
+            keystrokeAudioSource.PlayOneShot(clip, volume);
+        }
+    }
+
+    private void PlayErrorSound()
+    {
+        if (terminalAudioSource == null || errorSound == null)
+            return;
+
+        terminalAudioSource.pitch = 1f;
+        terminalAudioSource.PlayOneShot(errorSound, alertVolume);
+    }
+
+    private void PlayAccessGrantedSound()
+    {
+        if (terminalAudioSource == null || accessGrantedSound == null)
+            return;
+
+        terminalAudioSource.pitch = 1f;
+        terminalAudioSource.PlayOneShot(accessGrantedSound, alertVolume);
     }
 
     public static float GetSavedProgress(string saveId = "Monitor_01")
