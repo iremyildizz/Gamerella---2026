@@ -1073,6 +1073,17 @@ PrefabInstance:
       insertIndex: -1
       addedObject: {fileID: 0}
   m_SourcePrefab: {fileID: 100100000, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
+--- !u!114 &212617092 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 7634147000798048715, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
+  m_PrefabInstance: {fileID: 212617091}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dfc556e2a69ce47d783b423b863cc30e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::SecurityScreen
 --- !u!1001 &243111625
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -3649,6 +3660,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2247188159722986430, guid: 41a2328e81790440e843fdc75b6fe9d5, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 212617092}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
