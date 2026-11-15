@@ -1097,6 +1097,7 @@ Transform:
   - {fileID: 1474604097}
   - {fileID: 1842013039}
   - {fileID: 1366284764}
+  - {fileID: 953028573}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &160514592
@@ -6352,6 +6353,87 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!1001 &953028572
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 142002558}
+    m_Modifications:
+    - target: {fileID: 289623560202904430, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: m_Name
+      value: Battery Locker Variant c1 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7958580933721389010, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: cameraToCharge
+      value: 
+      objectReference: {fileID: 212617092}
+    - target: {fileID: 7958580933721389010, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: statusPromptText
+      value: 
+      objectReference: {fileID: 849060583}
+    - target: {fileID: 7958580933721389010, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: batteryInsertTarget
+      value: 
+      objectReference: {fileID: 1607232027}
+    - target: {fileID: 7958580933721389010, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: batteryVisualPrefab
+      value: 
+      objectReference: {fileID: 1123693314251274, guid: b741fa043c0908c499bb320804aa111b, type: 3}
+    - target: {fileID: 8700245731760088208, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -14.975464
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700245731760088208, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0.5495299
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700245731760088208, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -12.863989
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700245731760088208, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700245731760088208, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700245731760088208, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700245731760088208, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700245731760088208, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700245731760088208, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8700245731760088208, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8700245731760088208, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1607232027}
+    m_AddedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+--- !u!4 &953028573 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8700245731760088208, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+  m_PrefabInstance: {fileID: 953028572}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &971409932
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -9216,6 +9298,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 212617092}
     - target: {fileID: 7958580933721389010, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: statusPromptText
+      value: 
+      objectReference: {fileID: 849060583}
+    - target: {fileID: 7958580933721389010, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
       propertyPath: batteryInsertTarget
       value: 
       objectReference: {fileID: 313684908}
@@ -10070,6 +10156,10 @@ PrefabInstance:
       propertyPath: cameraToCharge
       value: 
       objectReference: {fileID: 212617094}
+    - target: {fileID: 7958580933721389010, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: statusPromptText
+      value: 
+      objectReference: {fileID: 849060583}
     - target: {fileID: 7958580933721389010, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
       propertyPath: batteryInsertTarget
       value: 
@@ -11067,6 +11157,37 @@ Transform:
   - {fileID: 1436899778}
   - {fileID: 1717298091}
   m_Father: {fileID: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1607232026
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1607232027}
+  m_Layer: 7
+  m_Name: Insert Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1607232027
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1607232026}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.532, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 953028573}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1611970048
 PrefabInstance:
@@ -12877,6 +12998,10 @@ PrefabInstance:
       propertyPath: cameraToCharge
       value: 
       objectReference: {fileID: 212617093}
+    - target: {fileID: 7958580933721389010, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: statusPromptText
+      value: 
+      objectReference: {fileID: 849060583}
     - target: {fileID: 7958580933721389010, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
       propertyPath: batteryInsertTarget
       value: 
