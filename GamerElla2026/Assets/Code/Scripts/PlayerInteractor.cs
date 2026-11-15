@@ -7,7 +7,7 @@ public class PlayerInteractor : MonoBehaviour
     [Header("Interaction Settings")]
     public Transform playerCamera;
     public float interactRange = 3f;
-    public LayerMask interactableLayer = 7;
+    public LayerMask interactableLayer = ~0;
 
     [Header("Crosshair UI")]
     public Image crosshairImage;
@@ -32,9 +32,14 @@ public class PlayerInteractor : MonoBehaviour
     {
         DetectInteractable();
 
-        if (interactAction != null && interactAction.WasPressedThisFrame() && currentInteractable != null)
+        if (interactAction != null && currentInteractable != null)
         {
-            currentInteractable.Interact();
+            if (interactAction.WasPressedThisFrame())
+            {
+                currentInteractable.Interact();
+            }
+
+            currentInteractable.InteractHold(interactAction.IsPressed());
         }
     }
 
@@ -54,6 +59,7 @@ public class PlayerInteractor : MonoBehaviour
 
         if (currentInteractable != previousInteractable)
         {
+            previousInteractable?.InteractHold(false);
             previousInteractable?.OnHoverExit();
 
             currentInteractable?.OnHoverEnter();

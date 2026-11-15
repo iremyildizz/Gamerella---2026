@@ -366,6 +366,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerCharacter3D
   moveSpeed: 5
+  gravity: -9.81
   mouseSensitivity: 0.15
   playerCamera: {fileID: 202285001327518092}
 --- !u!114 &8260751906503906692
