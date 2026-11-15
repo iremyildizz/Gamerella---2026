@@ -1349,6 +1349,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1405056270}
     - target: {fileID: 4204345767458523836, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
+      propertyPath: batteryLifeSeconds
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 4204345767458523836, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
+      propertyPath: startChargeRange.x
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 4204345767458523836, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
+      propertyPath: startChargeRange.y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 4204345767458523836, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: onCleared.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -1501,6 +1513,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6146968357977806009, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
+      propertyPath: batteryLifeSeconds
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 6146968357977806009, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
+      propertyPath: startChargeRange.x
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 6146968357977806009, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
+      propertyPath: startChargeRange.y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6146968357977806009, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: onCleared.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -1617,6 +1641,18 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 696461093}
     - target: {fileID: 6445381654372182450, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
+      propertyPath: batteryLifeSeconds
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 6445381654372182450, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
+      propertyPath: startChargeRange.x
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 6445381654372182450, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
+      propertyPath: startChargeRange.y
+      value: 200
+      objectReference: {fileID: 0}
+    - target: {fileID: 6445381654372182450, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: onCleared.m_PersistentCalls.m_Calls.Array.size
       value: 0
       objectReference: {fileID: 0}
@@ -1727,6 +1763,18 @@ PrefabInstance:
     - target: {fileID: 6445381654372182450, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: onReachedClose.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634147000798048715, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
+      propertyPath: batteryLifeSeconds
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634147000798048715, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
+      propertyPath: startChargeRange.x
+      value: 150
+      objectReference: {fileID: 0}
+    - target: {fileID: 7634147000798048715, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
+      propertyPath: startChargeRange.y
+      value: 200
       objectReference: {fileID: 0}
     - target: {fileID: 7634147000798048715, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: onCleared.m_PersistentCalls.m_Calls.Array.size
