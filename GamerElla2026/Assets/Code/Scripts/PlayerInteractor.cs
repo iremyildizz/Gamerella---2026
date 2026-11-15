@@ -21,7 +21,7 @@ public class PlayerInteractor : MonoBehaviour
     private InteractableOutline currentOutline;
 
     public bool HasInteractable => currentInteractable != null;
-    private bool showCooldown = false;
+    // private bool showCooldown = false;
 
     void Start()
     {
@@ -110,11 +110,11 @@ public class PlayerInteractor : MonoBehaviour
     void ShowInteractableCooldowm(float cooldown) {
         if (cooldown != 0.0)
         {
-            showCooldown = true;
+            // showCooldown = true;
             print(cooldown);
         }
 
-        showCooldown = false;
+        // showCooldown = false;
     }
 
     void OnDrawGizmosSelected()
