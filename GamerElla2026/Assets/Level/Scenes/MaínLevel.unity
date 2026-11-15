@@ -1205,11 +1205,11 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2428894409370389000, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: spawnIntervalMax
-      value: 3
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 2428894409370389000, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: spawnIntervalMin
-      value: 1
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 2428894409370389000, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: flickerAudioSource
@@ -1241,7 +1241,7 @@ PrefabInstance:
       objectReference: {fileID: 1405056270}
     - target: {fileID: 4204345767458523836, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: onCleared.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 4204345767458523836, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: onZombieDied.m_PersistentCalls.m_Calls.Array.size
@@ -1393,7 +1393,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6146968357977806009, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: onCleared.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6146968357977806009, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: onZombieDied.m_PersistentCalls.m_Calls.Array.size
@@ -1509,7 +1509,7 @@ PrefabInstance:
       objectReference: {fileID: 696461093}
     - target: {fileID: 6445381654372182450, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: onCleared.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6445381654372182450, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: onZombieDied.m_PersistentCalls.m_Calls.Array.size
@@ -1621,7 +1621,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7634147000798048715, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: onCleared.m_PersistentCalls.m_Calls.Array.size
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7634147000798048715, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: onZombieDied.m_PersistentCalls.m_Calls.Array.size
@@ -7439,6 +7439,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Bed
       objectReference: {fileID: 0}
+    - target: {fileID: 3614688564993837622, guid: fcf6a6dee2dc64846a005c443a08a3a2, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     - target: {fileID: 4134907770517295244, guid: fcf6a6dee2dc64846a005c443a08a3a2, type: 3}
       propertyPath: m_LocalScale.x
       value: 1.5
@@ -7491,11 +7495,66 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 6315672750910080739, guid: fcf6a6dee2dc64846a005c443a08a3a2, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 7422521874947145644, guid: fcf6a6dee2dc64846a005c443a08a3a2, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 8066375703105830936, guid: fcf6a6dee2dc64846a005c443a08a3a2, type: 3}
+      propertyPath: m_Layer
+      value: 7
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 3614688564993837622, guid: fcf6a6dee2dc64846a005c443a08a3a2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1223248734}
+    - targetCorrespondingSourceObject: {fileID: 3614688564993837622, guid: fcf6a6dee2dc64846a005c443a08a3a2, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1223248737}
   m_SourcePrefab: {fileID: 100100000, guid: fcf6a6dee2dc64846a005c443a08a3a2, type: 3}
+--- !u!1 &1223248733 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3614688564993837622, guid: fcf6a6dee2dc64846a005c443a08a3a2, type: 3}
+  m_PrefabInstance: {fileID: 1223248732}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &1223248734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223248733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c7d5244a2002a4a60bb24a70f9049709, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Bed
+  sleepAllowedBelowPercent: 100
+  onWentToBed:
+    m_PersistentCalls:
+      m_Calls: []
+  onNotTired:
+    m_PersistentCalls:
+      m_Calls: []
+--- !u!114 &1223248737
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1223248733}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a2355d5f1187f442821a96cee7279fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractableOutline
+  outlineMaterial: {fileID: 2100000, guid: 63f70abb0cdbc934aa02fce56b30d9e5, type: 2}
 --- !u!1001 &1228725938
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -7854,7 +7913,7 @@ GameObject:
   - component: {fileID: 1268884628}
   - component: {fileID: 1268884627}
   m_Layer: 0
-  m_Name: C2
+  m_Name: C3
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7880,7 +7939,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: C2
+  m_text: C3
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: ee543d2d977284d62820b9edd8972d0c, type: 2}
   m_sharedMaterial: {fileID: -255680831412253903, guid: ee543d2d977284d62820b9edd8972d0c, type: 2}
@@ -11173,6 +11232,18 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 2907925454337230493, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2907925454337230493, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2907925454337230493, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5151665672170151221, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
       propertyPath: m_Name
       value: Needs Panel
@@ -12056,7 +12127,7 @@ GameObject:
   - component: {fileID: 2034428396}
   - component: {fileID: 2034428395}
   m_Layer: 0
-  m_Name: LaserSystme
+  m_Name: Laser System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -12076,7 +12147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::LaserSystem
   cooldown: 8
   fireOnEmptyScreen: 1
-  flashMaterial: {fileID: 0}
+  flashMaterial: {fileID: 2100000, guid: 4918be52571f147058759ba5452393af, type: 2}
   flashDuration: 0.6
   flashAlpha:
     serializedVersion: 2

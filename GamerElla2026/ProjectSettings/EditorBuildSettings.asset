@@ -11,8 +11,11 @@ EditorBuildSettings:
   - enabled: 1
     path: "Assets/Level/Scenes/Ma\xEDnLevel.unity"
     guid: 1aa580309c5bc8f47b5d754a265548bb
-  - enabled: 1
+  - enabled: 0
     path: Assets/Level/Scenes/Gyms/HackingMiniGame.unity
     guid: 17b3853978a4f3949870f43415b485da
+  - enabled: 0
+    path: Assets/Level/Scenes/Gyms/Attack Gym.unity
+    guid: 66c9c3291d015411a84a31a2a0ed3f79
   m_configObjects:
     com.unity.input.settings.actions: {fileID: -944628639613478452, guid: 052faaac586de48259a63d0c4782560b, type: 3}
