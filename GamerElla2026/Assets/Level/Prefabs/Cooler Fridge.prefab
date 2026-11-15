@@ -639,9 +639,9 @@ MonoBehaviour:
   eatDuration: 3
   doorAudioSource: {fileID: 2161120561632324758}
   eatingAudioSource: {fileID: 447308083348789811}
-  openSound: {fileID: 8300000, guid: e066a3ab3111f054bb778b4d32d4f5b9, type: 3}
-  closeSound: {fileID: 8300000, guid: d26de1ee779621245b11df689acd045e, type: 3}
-  eatingSound: {fileID: 8300000, guid: 73e884377b050a0409f762d2e493b02a, type: 3}
+  openSound: {fileID: 8300000, guid: c6f57814a14849840af26c817b9943df, type: 3}
+  closeSound: {fileID: 8300000, guid: 68537cf692106274bbe2ee4ef4200242, type: 3}
+  eatingSound: {fileID: 8300000, guid: 0f6e8308756b99f4c95cf544e1a8a8eb, type: 3}
   player: {fileID: 0}
 --- !u!82 &2161120561632324758
 AudioSource:
