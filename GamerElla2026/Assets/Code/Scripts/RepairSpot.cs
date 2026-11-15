@@ -82,12 +82,16 @@ public class RepairSpot : MonoBehaviour, IInteractable
     Canvas canvas;
     int lastNail = -1;
 
+    public InteractableOutline outline;
+
     void Awake()
     {
         if (nails.Count == 0)
             nails = GetComponentsInChildren<Transform>(true)
                 .Where(t => t != transform && t.name.ToLower().Contains("nail")).ToList();
         if (nails.Count == 0) Debug.LogWarning($"{name}: no nails found", this);
+
+        outline = GetComponent<InteractableOutline>();
     }
 
     public void Interact()
@@ -98,7 +102,10 @@ public class RepairSpot : MonoBehaviour, IInteractable
 
         GetViewPose(out var pos, out var rot);
         if (zoom.ZoomToPose(pos, rot, exitOnClick: false, onArrived: () => StartCoroutine(Play())))
+        {
             IsRunning = true;
+            SetOutlineEnabled(false);
+        } 
     }
 
     void GetViewPose(out Vector3 pos, out Quaternion rot)
@@ -251,6 +258,7 @@ public class RepairSpot : MonoBehaviour, IInteractable
             IsRunning = false;
             onRepairFinished.Invoke(score);
         });
+        SetOutlineEnabled(true);
     }
 
     Transform PickNail()
@@ -327,5 +335,13 @@ public class RepairSpot : MonoBehaviour, IInteractable
         float scale = canvas.scaleFactor > 0f ? canvas.scaleFactor : 1f;
         ringRoot.anchoredPosition = screenPos / scale;
         ringRoot.sizeDelta = Vector2.one * (radius * 2f / scale);
+    }
+
+    public void SetOutlineEnabled(bool isEnabled)
+    {
+        if (outline != null)
+        {
+            outline.enabled = isEnabled;
+        }
     }
 }
