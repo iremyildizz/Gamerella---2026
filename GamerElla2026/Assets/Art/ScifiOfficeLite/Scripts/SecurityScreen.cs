@@ -4,7 +4,8 @@ using UnityEngine.Events;
 
 public class SecurityScreen : MonoBehaviour
 {
-    public enum State { Empty, Far, Close }
+    // Lurking = the zombie left the frame but is still out there (not killed yet).
+    public enum State { Empty, Far, Close, Lurking }
 
     [SerializeField] Renderer screen;
     [SerializeField] Material emptyMat, farMat, closeMat;
@@ -26,6 +27,18 @@ public class SecurityScreen : MonoBehaviour
     public UnityEvent onBatteryLow;
     public UnityEvent onFeedLost;
     public UnityEvent onBatteryReplaced;
+
+    [Header("Lurking (zombie off-camera, not killed)")]
+    [Tooltip("Seconds the zombie lurks after leaving the frame before it breaks in")]
+    [SerializeField, Min(0f)] float lurkDuration = 60f;
+    [Tooltip("Random wait between two static flashes while lurking (min, max seconds)")]
+    [SerializeField] Vector2 lurkStaticInterval = new Vector2(2f, 6f);
+    [Tooltip("Length of each static flash while lurking (seconds)")]
+    [SerializeField, Min(0.05f)] float lurkStaticDuration = 0.25f;
+    [Tooltip("House protection lost when a lurking zombie breaks in (protection is 0-100)")]
+    [SerializeField, Min(0f)] float breachProtectionDamage = 25f;
+    public UnityEvent onLurking;     // zombie left the frame but is still alive
+    public UnityEvent onBreached;    // lurked too long: damaged the house and despawned
 
     [Header("Closeness Stage Events (Per Camera)")]
     public UnityEvent onDetectedFar;
@@ -84,6 +97,28 @@ public class SecurityScreen : MonoBehaviour
         onReachedClose?.Invoke();
         yield return Hold(() => manager.CloseDuration);
 
+        // Out of frame but still alive: rec dot keeps blinking and the feed
+        // glitches now and then until it's zapped or breaks in.
+        SetState(State.Lurking);
+        onLurking?.Invoke();
+        float lo = Mathf.Max(0.1f, Mathf.Min(lurkStaticInterval.x, lurkStaticInterval.y));
+        float hi = Mathf.Max(lo, Mathf.Max(lurkStaticInterval.x, lurkStaticInterval.y));
+        float nextFlash = Random.Range(lo, hi);
+        for (float t = 0f; t < lurkDuration; t += Time.deltaTime)
+        {
+            BlinkDot();
+            nextFlash -= Time.deltaTime;
+            if (nextFlash <= 0f)
+            {
+                PlayStatic(lurkStaticDuration);
+                nextFlash = Random.Range(lo, hi);
+            }
+            yield return null;
+        }
+
+        if (HouseProtection.Instance != null) HouseProtection.Instance.Drain(breachProtectionDamage);
+        onBreached?.Invoke();
+
         routine = null;
         SetState(State.Empty);
         onCleared?.Invoke();
@@ -131,11 +166,7 @@ public class SecurityScreen : MonoBehaviour
         BatteryPercent = 100f;
         wasLow = wasLost = false;
         onBatteryReplaced?.Invoke();
-        if (Application.isPlaying && isActiveAndEnabled && switchStaticDuration > 0f)
-        {
-            if (staticRoutine != null) StopCoroutine(staticRoutine);
-            staticRoutine = StartCoroutine(SwitchStatic());   // short static as the feed comes back
-        }
+        PlayStatic(switchStaticDuration);   // short static as the feed comes back
         ApplyScreenProps();
     }
 
@@ -153,11 +184,14 @@ public class SecurityScreen : MonoBehaviour
         };
         screen.sharedMaterials = mats;
         if (s == State.Empty && recDot != null) recDot.SetActive(false);
-        if (changed && Application.isPlaying && isActiveAndEnabled && switchStaticDuration > 0f)
-        {
-            if (staticRoutine != null) StopCoroutine(staticRoutine);
-            staticRoutine = StartCoroutine(SwitchStatic());
-        }
+        if (changed) PlayStatic(switchStaticDuration);
+    }
+
+    void PlayStatic(float duration)
+    {
+        if (!Application.isPlaying || !isActiveAndEnabled || duration <= 0f) return;
+        if (staticRoutine != null) StopCoroutine(staticRoutine);
+        staticRoutine = StartCoroutine(SwitchStatic(duration));
     }
 
 
@@ -168,10 +202,10 @@ public class SecurityScreen : MonoBehaviour
     float switchBurst;
     float appliedBurst = -1f, appliedLow = -1f;
 
-    IEnumerator SwitchStatic()
+    IEnumerator SwitchStatic(float duration)
     {
         staticBlock ??= new MaterialPropertyBlock();
-        for (float t = 0f; t < 1f; t += Time.deltaTime / switchStaticDuration)
+        for (float t = 0f; t < 1f; t += Time.deltaTime / duration)
         {
             SetStaticBurst(1f - t * t);   // full static, fading out
             yield return null;
