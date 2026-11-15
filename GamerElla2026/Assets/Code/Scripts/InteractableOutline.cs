@@ -1,4 +1,4 @@
-using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 public class InteractableOutline : MonoBehaviour
@@ -7,16 +7,11 @@ public class InteractableOutline : MonoBehaviour
     public Material outlineMaterial;
 
     private Renderer[] renderers;
-    private readonly Dictionary<Renderer, Material[]> originalMaterials = new();
     private bool isOutlined = false;
 
     void Awake()
     {
         renderers = GetComponentsInChildren<Renderer>();
-        foreach (Renderer rend in renderers)
-        {
-            originalMaterials[rend] = rend.sharedMaterials;
-        }
     }
 
     public void SetOutline(bool active)
@@ -28,18 +23,12 @@ public class InteractableOutline : MonoBehaviour
         {
             if (rend == null) continue;
 
-            if (active)
-            {
-                Material[] orig = originalMaterials[rend];
-                Material[] withOutline = new Material[orig.Length + 1];
-                orig.CopyTo(withOutline, 0);
-                withOutline[orig.Length] = outlineMaterial;
-                rend.materials = withOutline;
-            }
-            else
-            {
-                rend.materials = originalMaterials[rend];
-            }
+            Material[] current = rend.sharedMaterials;
+            Material[] withoutOutline = current.Where(m => m != outlineMaterial).ToArray();
+
+            rend.sharedMaterials = active
+                ? withoutOutline.Append(outlineMaterial).ToArray()
+                : withoutOutline;
         }
     }
 }
