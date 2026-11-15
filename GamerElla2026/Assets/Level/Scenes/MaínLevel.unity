@@ -6546,6 +6546,10 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 679565797557785973, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
+      propertyPath: m_Depth
+      value: 20
+      objectReference: {fileID: 0}
     - target: {fileID: 2529929924718070455, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -10851,7 +10855,7 @@ PrefabInstance:
     - target: {fileID: 4485026200383384307, guid: 3a93af8ef9948a54897366e75518db1d, type: 3}
       propertyPath: 'scriptsToDisable.Array.data[0]'
       value: 
-      objectReference: {fileID: 0}
+      objectReference: {fileID: 479950621}
     - target: {fileID: 4935922898465123978, guid: 3a93af8ef9948a54897366e75518db1d, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.442
