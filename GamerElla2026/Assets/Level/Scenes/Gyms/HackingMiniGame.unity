@@ -1521,6 +1521,7 @@ GameObject:
   - component: {fileID: 1900307135}
   - component: {fileID: 1900307134}
   - component: {fileID: 1900307138}
+  - component: {fileID: 1900307139}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -1635,7 +1636,7 @@ MonoBehaviour:
   terminalInputText: {fileID: 97510605}
   progressBarFill: {fileID: 750984057}
   progressPercentText: {fileID: 1793591291}
-  correctStepGain: 0.5
+  correctStepGain: 0.1
   errorStepPenalty: 0.06
   barSmoothSpeed: 10
   codeLength: 10
@@ -1651,6 +1652,123 @@ MonoBehaviour:
   showBlinkingCursor: 1
   errorShakeDuration: 0.12
   errorShakeMagnitude: 25
+  terminalAudioSource: {fileID: 1900307139}
+  keystrokeAudioSource: {fileID: 1900307139}
+  keystrokeSounds:
+  - {fileID: 8300000, guid: 0c3902542512a0f4c98d1e5293c92684, type: 3}
+  - {fileID: 8300000, guid: 2c9351ff1a84f854f882c19d780e84d5, type: 3}
+  - {fileID: 8300000, guid: da696b89b6210414c8bcbc2f9b536309, type: 3}
+  - {fileID: 8300000, guid: 84b870e4df37aca4abf761531fdcfddf, type: 3}
+  - {fileID: 8300000, guid: b262890564dbbfa439dd6839d027dea9, type: 3}
+  - {fileID: 8300000, guid: e7c660fb21a08e446b02cd2f88f101ae, type: 3}
+  - {fileID: 8300000, guid: c44f13bd15f2c1043aa404103bd5f436, type: 3}
+  - {fileID: 8300000, guid: 45c8bfd3307181f4ca55041ce535581b, type: 3}
+  - {fileID: 8300000, guid: edcd085dc8e80c149ac27a533e8bda4f, type: 3}
+  - {fileID: 8300000, guid: 6a76700300d293b468d2f634bc24480a, type: 3}
+  - {fileID: 8300000, guid: 97d0a83ae191b5142b8db69d843b54c3, type: 3}
+  - {fileID: 8300000, guid: ac3405a98ca4736479e0c4809e936c36, type: 3}
+  errorSound: {fileID: 8300000, guid: c01df23e31442bb42a5db56a4d8ae38b, type: 3}
+  accessGrantedSound: {fileID: 8300000, guid: 6fb09b9aff59242418025c1ca7f302ff, type: 3}
+  pitchRange: {x: 0.94, y: 1.06}
+  volumeRange: {x: 0.75, y: 1}
+  alertVolume: 1
+--- !u!82 &1900307139
+AudioSource:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1900307133}
+  m_Enabled: 1
+  serializedVersion: 4
+  OutputAudioMixerGroup: {fileID: 0}
+  m_audioClip: {fileID: 0}
+  m_Resource: {fileID: 0}
+  m_PlayOnAwake: 1
+  m_Volume: 0.4
+  m_Pitch: 1
+  Loop: 0
+  Mute: 0
+  Spatialize: 0
+  SpatializePostEffects: 0
+  Priority: 128
+  DopplerLevel: 1
+  MinDistance: 1
+  MaxDistance: 500
+  Pan2D: 0
+  rolloffMode: 0
+  BypassEffects: 0
+  BypassListenerEffects: 0
+  BypassReverbZones: 0
+  rolloffCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  panLevelCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  spreadCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  reverbZoneMixCustomCurve:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0.33333334
+      outWeight: 0.33333334
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
