@@ -494,6 +494,7 @@ GameObject:
   - component: {fileID: 4563480860453160152}
   - component: {fileID: 6585397511633410244}
   - component: {fileID: 6265628267273394089}
+  - component: {fileID: 6649673084741488182}
   m_Layer: 6
   m_Name: Player
   m_TagString: Untagged
@@ -621,6 +622,23 @@ CharacterController:
   m_SkinWidth: 0.08
   m_MinMoveDistance: 0.001
   m_Center: {x: 0, y: 0.9, z: 0}
+--- !u!114 &6649673084741488182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4580651783479466658}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: e967e0c3228324626bf60da63f67e425, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::ScreenZoomController
+  playerCamera: {fileID: 0}
+  movement: {fileID: 0}
+  interactor: {fileID: 0}
+  zoomTime: 0.35
+  hidePlayerWhileZoomed: 1
 --- !u!1 &4761314966941048711
 GameObject:
   m_ObjectHideFlags: 0
