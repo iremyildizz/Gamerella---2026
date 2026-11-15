@@ -14,6 +14,19 @@ public class SecurityScreen : MonoBehaviour
     [Tooltip("Seconds of static when the image changes (needs the Custom/SurveillanceFeed shader). 0 = off")]
     [SerializeField, Min(0f)] float switchStaticDuration = 0.35f;
 
+    [Header("Battery")]
+    [Tooltip("Seconds a full battery lasts")]
+    [SerializeField, Min(1f)] float batteryLifeSeconds = 180f;
+    [Tooltip("Random starting charge in percent (min, max), so the cameras don't all die at the same time")]
+    [SerializeField] Vector2 startChargeRange = new Vector2(50f, 100f);
+    [Tooltip("The low-battery icon blinks on the screen at or below this percent")]
+    [SerializeField, Range(0f, 100f)] float lowBatteryPercent = 10f;
+    [Tooltip("At or below this percent the image is lost: static only")]
+    [SerializeField, Range(0f, 100f)] float feedLostPercent = 0f;
+    public UnityEvent onBatteryLow;
+    public UnityEvent onFeedLost;
+    public UnityEvent onBatteryReplaced;
+
     [Header("Closeness Stage Events (Per Camera)")]
     public UnityEvent onDetectedFar;
     public UnityEvent onReachedClose;
@@ -23,11 +36,20 @@ public class SecurityScreen : MonoBehaviour
     public State Current { get; private set; } = State.Empty;
     public bool IsFree => Current == State.Empty;
 
+    public float BatteryPercent { get; private set; } = 100f;
+    public bool IsBatteryLow => BatteryPercent <= lowBatteryPercent;
+    public bool IsFeedLost => BatteryPercent <= feedLostPercent;
+
     SecurityCameraManager manager;
     Coroutine routine;
 
     void Awake()
     {
+        float lo = Mathf.Min(startChargeRange.x, startChargeRange.y);
+        float hi = Mathf.Max(startChargeRange.x, startChargeRange.y);
+        BatteryPercent = Mathf.Clamp(Random.Range(lo, hi), 0f, 100f);
+        wasLow = IsBatteryLow;
+        wasLost = IsFeedLost;
         if (recDot == null || !recDot.transform.IsChildOf(transform))
         {
             var child = FindChild(transform, "RecDot");
@@ -81,7 +103,40 @@ public class SecurityScreen : MonoBehaviour
     void BlinkDot()
     {
         if (recDot != null)
-            recDot.SetActive(Mathf.FloorToInt(Time.time / blinkInterval) % 2 == 0);
+            recDot.SetActive(!IsFeedLost && Mathf.FloorToInt(Time.time / blinkInterval) % 2 == 0);
+    }
+
+    bool wasLow, wasLost;
+
+    void Update()
+    {
+        if (BatteryPercent > 0f)
+            BatteryPercent = Mathf.Max(0f, BatteryPercent - 100f / batteryLifeSeconds * Time.deltaTime);
+
+        bool low = IsBatteryLow, lost = IsFeedLost;
+        if (low && !wasLow) onBatteryLow?.Invoke();
+        if (lost && !wasLost)
+        {
+            onFeedLost?.Invoke();
+            if (recDot != null) recDot.SetActive(false);
+        }
+        wasLow = low;
+        wasLost = lost;
+
+        ApplyScreenProps();
+    }
+
+    public void ReplaceBattery()
+    {
+        BatteryPercent = 100f;
+        wasLow = wasLost = false;
+        onBatteryReplaced?.Invoke();
+        if (Application.isPlaying && isActiveAndEnabled && switchStaticDuration > 0f)
+        {
+            if (staticRoutine != null) StopCoroutine(staticRoutine);
+            staticRoutine = StartCoroutine(SwitchStatic());   // short static as the feed comes back
+        }
+        ApplyScreenProps();
     }
 
     void SetState(State s)
@@ -105,11 +160,13 @@ public class SecurityScreen : MonoBehaviour
         }
     }
 
-    // ---------- Static when the image changes ----------
 
     static readonly int StaticBurstId = Shader.PropertyToID("_StaticBurst");
+    static readonly int LowBatteryId = Shader.PropertyToID("_LowBattery");
     MaterialPropertyBlock staticBlock;
     Coroutine staticRoutine;
+    float switchBurst;
+    float appliedBurst = -1f, appliedLow = -1f;
 
     IEnumerator SwitchStatic()
     {
@@ -125,12 +182,30 @@ public class SecurityScreen : MonoBehaviour
 
     void SetStaticBurst(float amount)
     {
+        switchBurst = amount;
+        ApplyScreenProps();
+    }
+
+    void ApplyScreenProps()
+    {
+        if (screen == null) return;
+        float burst = IsFeedLost ? 1f : switchBurst;
+        float low = IsBatteryLow ? 1f : 0f;
+        if (Mathf.Approximately(burst, appliedBurst) && low == appliedLow) return;
+        appliedBurst = burst;
+        appliedLow = low;
+
+        staticBlock ??= new MaterialPropertyBlock();
         screen.GetPropertyBlock(staticBlock);
-        staticBlock.SetFloat(StaticBurstId, amount);
+        staticBlock.SetFloat(StaticBurstId, burst);
+        staticBlock.SetFloat(LowBatteryId, low);
         screen.SetPropertyBlock(staticBlock);
     }
 
-    // ---------- Laser zap ----------
+    [ContextMenu("Battery/Set To Low")] void DebugBatteryLow() => BatteryPercent = Mathf.Min(BatteryPercent, lowBatteryPercent);
+    [ContextMenu("Battery/Set To Dead")] void DebugBatteryDead() => BatteryPercent = 0f;
+    [ContextMenu("Battery/Replace")] void DebugBatteryReplace() => ReplaceBattery();
+
 
     static readonly int BaseColorId = Shader.PropertyToID("_BaseColor");
     MeshRenderer flashQuad;
@@ -140,8 +215,6 @@ public class SecurityScreen : MonoBehaviour
 
     public bool HasSilhouette => !IsFree;
 
-    // Plays a white flash over this screen and removes the silhouette if
-    // there is one. Returns true if a silhouette was removed.
     public bool Zap(Material flashMaterial, float duration, AnimationCurve alpha,
                     float lightIntensity, float lightRange)
     {

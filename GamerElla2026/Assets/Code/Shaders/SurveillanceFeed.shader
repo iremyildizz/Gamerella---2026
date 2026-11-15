@@ -40,6 +40,13 @@ Shader "Custom/SurveillanceFeed"
 
         [Header(Static)]
         _StaticBurst ("Static Burst (script)", Range(0, 1)) = 0
+
+        [Header(Low Battery Icon)]
+        _LowBattery ("Low Battery (script)", Range(0, 1)) = 0
+        _IconColor ("Icon Colour", Color) = (1, 0.18, 0.12, 1)
+        _IconPosition ("Icon Position (UV)", Vector) = (0.86, 0.14, 0, 0)
+        _IconSize ("Icon Size", Range(0.3, 3)) = 1.6
+        _ScreenAspect ("Screen Width / Height", Float) = 1.55
     }
 
     SubShader
@@ -68,6 +75,11 @@ Shader "Custom/SurveillanceFeed"
             half _Vignette;
             half _Flicker;
             half _StaticBurst;
+            half _LowBattery;
+            half4 _IconColor;
+            float4 _IconPosition;
+            float _IconSize;
+            float _ScreenAspect;
         CBUFFER_END
         ENDHLSL
 
@@ -113,6 +125,26 @@ Shader "Custom/SurveillanceFeed"
                 return o;
             }
 
+            float SdBox(float2 p, float2 halfSize)
+            {
+                float2 d = abs(p) - halfSize;
+                return length(max(d, 0.0)) + min(max(d.x, d.y), 0.0);
+            }
+
+            // Battery outline + tip + one small charge bar (in screen-height units).
+            float BatteryIconMask(float2 uv)
+            {
+                float2 p = (uv - _IconPosition.xy) / max(_IconSize, 0.01);
+                p.x *= _ScreenAspect;
+                float aa = max(fwidth(p.y), 1e-4);
+
+                float2 body = float2(0.05, 0.027);
+                float outline = 1.0 - smoothstep(0.0035 - aa, 0.0035 + aa, abs(SdBox(p, body)));
+                float tip = 1.0 - smoothstep(-aa, aa, SdBox(p - float2(body.x + 0.007, 0), float2(0.006, 0.011)));
+                float bar = 1.0 - smoothstep(-aa, aa, SdBox(p - float2(-body.x + 0.016, 0), float2(0.008, body.y - 0.012)));
+                return saturate(max(outline, max(tip, bar)));
+            }
+
             half3 SampleFeed(float2 uv)
             {
                 return SAMPLE_TEXTURE2D(_BaseMap, sampler_BaseMap, uv * _BaseMap_ST.xy + _BaseMap_ST.zw).rgb;
@@ -131,6 +163,7 @@ Shader "Custom/SurveillanceFeed"
                 cc *= 1.0 + _Curvature * dot(cc, cc);
                 float2 uv = cc * 0.5 + 0.5;
                 float inside = step(0.0, uv.x) * step(uv.x, 1.0) * step(0.0, uv.y) * step(uv.y, 1.0);
+                float2 crtUV = uv;   // before jitter, for the overlay icon
 
                 float burst = saturate(_StaticBurst);
 
@@ -174,6 +207,11 @@ Shader "Custom/SurveillanceFeed"
                 // Vignette.
                 float2 v = uv - 0.5;
                 col *= saturate(1.0 - dot(v, v) * _Vignette * 2.0);
+
+                // Blinking low-battery icon, drawn on top (also over full static).
+                float blink = step(0.45, frac(_Time.y * 1.2));
+                float icon = BatteryIconMask(crtUV) * _LowBattery * blink;
+                col = lerp(col, _IconColor.rgb * 1.4, icon);
 
                 col = max(col, 0) * _Brightness * inside;
                 col = MixFog(col, i.fogFactor);
