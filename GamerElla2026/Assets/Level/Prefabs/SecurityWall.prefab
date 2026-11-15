@@ -119,29 +119,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1515343389125281175, guid: 7183b4f0a0a89424dbcabc345f8af4fc, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 4767540663911774431}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7183b4f0a0a89424dbcabc345f8af4fc, type: 3}
---- !u!1 &289785821207770571 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1515343389125281175, guid: 7183b4f0a0a89424dbcabc345f8af4fc, type: 3}
-  m_PrefabInstance: {fileID: 1225562268826349660}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &4767540663911774431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 289785821207770571}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a2355d5f1187f442821a96cee7279fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractableOutline
-  outlineMaterial: {fileID: 2100000, guid: 63f70abb0cdbc934aa02fce56b30d9e5, type: 2}
 --- !u!4 &1102913550520217457 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2183195116716220205, guid: 7183b4f0a0a89424dbcabc345f8af4fc, type: 3}
@@ -152,7 +131,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 4921441828681639141, guid: 7183b4f0a0a89424dbcabc345f8af4fc, type: 3}
   m_PrefabInstance: {fileID: 1225562268826349660}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 289785821207770571}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfc556e2a69ce47d783b423b863cc30e, type: 3}
@@ -213,29 +192,8 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1515343389125281175, guid: 4c62ab8fc475142e4838cd46f8a7b617, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3516768948377838336}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4c62ab8fc475142e4838cd46f8a7b617, type: 3}
---- !u!1 &3823253975228647900 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1515343389125281175, guid: 4c62ab8fc475142e4838cd46f8a7b617, type: 3}
-  m_PrefabInstance: {fileID: 2308510369696844875}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3516768948377838336
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3823253975228647900}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a2355d5f1187f442821a96cee7279fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractableOutline
-  outlineMaterial: {fileID: 2100000, guid: 63f70abb0cdbc934aa02fce56b30d9e5, type: 2}
 --- !u!4 &4487060324593881958 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2183195116716220205, guid: 4c62ab8fc475142e4838cd46f8a7b617, type: 3}
@@ -246,7 +204,7 @@ MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 8753838259600778745, guid: 4c62ab8fc475142e4838cd46f8a7b617, type: 3}
   m_PrefabInstance: {fileID: 2308510369696844875}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3823253975228647900}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfc556e2a69ce47d783b423b863cc30e, type: 3}
@@ -307,40 +265,19 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1515343389125281175, guid: b7624101408f44004bda1ea77d412a00, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3064199460900961941}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b7624101408f44004bda1ea77d412a00, type: 3}
 --- !u!4 &2683237794352745971 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2183195116716220205, guid: b7624101408f44004bda1ea77d412a00, type: 3}
   m_PrefabInstance: {fileID: 4283067189368492766}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &3348169183912007497 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1515343389125281175, guid: b7624101408f44004bda1ea77d412a00, type: 3}
-  m_PrefabInstance: {fileID: 4283067189368492766}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &3064199460900961941
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3348169183912007497}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a2355d5f1187f442821a96cee7279fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractableOutline
-  outlineMaterial: {fileID: 2100000, guid: 63f70abb0cdbc934aa02fce56b30d9e5, type: 2}
 --- !u!114 &7634147000798048715 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5945159244186575637, guid: b7624101408f44004bda1ea77d412a00, type: 3}
   m_PrefabInstance: {fileID: 4283067189368492766}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3348169183912007497}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfc556e2a69ce47d783b423b863cc30e, type: 3}
@@ -401,17 +338,14 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1515343389125281175, guid: 01248a13272704ef6ad092a639108864, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 5655236698421994972}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 01248a13272704ef6ad092a639108864, type: 3}
 --- !u!114 &4204345767458523836 stripped
 MonoBehaviour:
   m_CorrespondingSourceObject: {fileID: 5158423685050622088, guid: 01248a13272704ef6ad092a639108864, type: 3}
   m_PrefabInstance: {fileID: 9065377928152295988}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7550608003244994467}
+  m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: dfc556e2a69ce47d783b423b863cc30e, type: 3}
@@ -422,21 +356,3 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 2183195116716220205, guid: 01248a13272704ef6ad092a639108864, type: 3}
   m_PrefabInstance: {fileID: 9065377928152295988}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &7550608003244994467 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1515343389125281175, guid: 01248a13272704ef6ad092a639108864, type: 3}
-  m_PrefabInstance: {fileID: 9065377928152295988}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &5655236698421994972
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7550608003244994467}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a2355d5f1187f442821a96cee7279fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractableOutline
-  outlineMaterial: {fileID: 2100000, guid: 63f70abb0cdbc934aa02fce56b30d9e5, type: 2}
