@@ -12,6 +12,7 @@ public class PlayerHunger : MonoBehaviour
     public Slider hungerSlider;
 
     private float currentHunger;
+    private bool hasDied = false;
 
     public float CurrentHunger => currentHunger;
     public bool IsStarving => currentHunger <= 0f;
@@ -30,11 +31,14 @@ public class PlayerHunger : MonoBehaviour
 
     void Update()
     {
+        if (hasDied) return;
+
         if (currentHunger > 0f)
         {
             float perSecond = maxHunger * (drainPercentPerMinute / 100f) / 60f;
             currentHunger = Mathf.Max(0f, currentHunger - perSecond * Time.deltaTime);
             UpdateUI();
+            CheckStarvation();
         }
     }
 
@@ -43,14 +47,26 @@ public class PlayerHunger : MonoBehaviour
     // Lower hunger by an amount (used when sleeping).
     public void Drain(float amount)
     {
+        if (hasDied) return;
         currentHunger = Mathf.Clamp(currentHunger - amount, 0f, maxHunger);
         UpdateUI();
+        CheckStarvation();
     }
 
     public void ReplenishHunger()
     {
         currentHunger = maxHunger;
         UpdateUI();
+    }
+
+    private void CheckStarvation()
+    {
+        if (!hasDied && currentHunger <= 0f)
+        {
+            hasDied = true;
+            if (GameOverManager.Instance != null)
+                GameOverManager.Instance.TriggerGameOver(GameOverManager.LoseReason.Starvation);
+        }
     }
 
     private void UpdateUI()

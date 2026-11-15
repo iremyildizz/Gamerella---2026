@@ -14,8 +14,10 @@ public class HouseProtection : MonoBehaviour
     public float perfectRepairGain = 30f;
 
     float current;
+    bool hasBreached = false;
 
     public float CurrentProtection => current;
+    public bool IsBreached => current <= 0f;
     public float Percent => maxProtection > 0f ? current / maxProtection : 0f;
 
     void Awake()
@@ -28,13 +30,34 @@ public class HouseProtection : MonoBehaviour
 
     void Update()
     {
-        if (drainPercentPerMinute <= 0f || current <= 0f) return;
-        current = Mathf.Max(0f, current - maxProtection * (drainPercentPerMinute / 100f) / 60f * Time.deltaTime);
+        if (hasBreached || drainPercentPerMinute <= 0f) return;
+
+        if (current > 0f)
+        {
+            current = Mathf.Max(0f, current - maxProtection * (drainPercentPerMinute / 100f) / 60f * Time.deltaTime);
+            CheckBreach();
+        }
     }
 
     // accuracy: 0..1 (nails hit / nails shown)
     public void AddFromRepair(float accuracy) => Add(perfectRepairGain * Mathf.Clamp01(accuracy));
 
-    public void Add(float amount) => current = Mathf.Clamp(current + amount, 0f, maxProtection);
+    public void Add(float amount)
+    {
+        if (hasBreached) return;
+        current = Mathf.Clamp(current + amount, 0f, maxProtection);
+        CheckBreach();
+    }
+
     public void Drain(float amount) => Add(-amount);
+
+    private void CheckBreach()
+    {
+        if (!hasBreached && current <= 0f)
+        {
+            hasBreached = true;
+            if (GameOverManager.Instance != null)
+                GameOverManager.Instance.TriggerGameOver(GameOverManager.LoseReason.ZombiesBreached);
+        }
+    }
 }
