@@ -71,6 +71,15 @@ public class RepairSpot : MonoBehaviour, IInteractable
     public UnityEvent onNailMissed;
     public UnityEvent<int> onRepairFinished;   // passes the score
 
+    [Header("Audio")]
+    [Tooltip("AudioSource for click/hammer sounds")]
+    [SerializeField] AudioSource sfxAudioSource;
+    [Tooltip("Separate 3D AudioSource")]
+    [SerializeField] AudioSource ambianceAudioSource;
+    [SerializeField] AudioClip clickSound;
+    [SerializeField] AudioClip windowAmbianceClip;
+    [Range(0f, 0.2f)][SerializeField] float clickPitchVariation = 0.08f;
+
     public bool IsRunning { get; private set; }
     public int LastScore { get; private set; }
 
@@ -82,7 +91,7 @@ public class RepairSpot : MonoBehaviour, IInteractable
     Canvas canvas;
     int lastNail = -1;
 
-    public InteractableOutline outline;
+    private InteractableOutline outline;
 
     void Awake()
     {
@@ -92,6 +101,14 @@ public class RepairSpot : MonoBehaviour, IInteractable
         if (nails.Count == 0) Debug.LogWarning($"{name}: no nails found", this);
 
         outline = GetComponent<InteractableOutline>();
+    }
+
+    void Start()
+    {
+        if (sfxAudioSource != null)
+        {
+            sfxAudioSource.playOnAwake = false;
+        }
     }
 
     public void Interact()
@@ -224,6 +241,8 @@ public class RepairSpot : MonoBehaviour, IInteractable
 
                 if (Mouse.current != null && Mouse.current.leftButton.wasPressedThisFrame)
                 {
+                    PlayClickSound();
+
                     float d = Vector2.Distance(Mouse.current.position.ReadValue(), nailScreen);
                     if (d <= hitRadius)
                     {
@@ -343,5 +362,13 @@ public class RepairSpot : MonoBehaviour, IInteractable
         {
             outline.enabled = isEnabled;
         }
+    }
+
+    void PlayClickSound()
+    {
+        if (sfxAudioSource == null || clickSound == null) return;
+
+        sfxAudioSource.pitch = 1f + Random.Range(-clickPitchVariation, clickPitchVariation);
+        sfxAudioSource.PlayOneShot(clickSound);
     }
 }
