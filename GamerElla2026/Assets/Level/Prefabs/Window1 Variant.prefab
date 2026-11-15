@@ -738,19 +738,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2562289859657410404, guid: 3746952bb7613644095ebcb852568623, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.87256
+      value: 74.15976
       objectReference: {fileID: 0}
     - target: {fileID: 2562289859657410404, guid: 3746952bb7613644095ebcb852568623, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.943
+      value: 1.06
       objectReference: {fileID: 0}
     - target: {fileID: 2562289859657410404, guid: 3746952bb7613644095ebcb852568623, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.31
+      value: -8.14
       objectReference: {fileID: 0}
     - target: {fileID: 2562289859657410404, guid: 3746952bb7613644095ebcb852568623, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 2562289859657410404, guid: 3746952bb7613644095ebcb852568623, type: 3}
       propertyPath: m_LocalRotation.x
@@ -758,7 +758,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2562289859657410404, guid: 3746952bb7613644095ebcb852568623, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 2562289859657410404, guid: 3746952bb7613644095ebcb852568623, type: 3}
       propertyPath: m_LocalRotation.z
@@ -770,7 +770,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2562289859657410404, guid: 3746952bb7613644095ebcb852568623, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 90
       objectReference: {fileID: 0}
     - target: {fileID: 2562289859657410404, guid: 3746952bb7613644095ebcb852568623, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -894,6 +894,7 @@ MonoBehaviour:
   shrinkTimeEnd: 0.8
   pauseBetween: 0.35
   missOnWrongClick: 1
+  repairCooldown: 15
   ringTexture: {fileID: 2800000, guid: 399b46898d6874f24b2590a4708ad3de, type: 3}
   ringStartRadius: 140
   ringEndRadius: 14
@@ -919,6 +920,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRepairFinished:
+    m_PersistentCalls:
+      m_Calls: []
+  onCooldownEnded:
     m_PersistentCalls:
       m_Calls: []
   sfxAudioSource: {fileID: 4557479031760756589}

@@ -38,6 +38,10 @@ public class RepairSpot : MonoBehaviour, IInteractable
     [Tooltip("If on, clicking away from the nail counts as a miss")]
     [SerializeField] bool missOnWrongClick = true;
 
+    [Header("Cooldown")]
+    [Tooltip("Seconds before THIS window/door can be repaired again. Only starts if at least one nail was hit.")]
+    [SerializeField, Min(0f)] float repairCooldown = 60f;
+
     [Header("Ring (pixels)")]
     [SerializeField] Texture ringTexture;
     [SerializeField] float ringStartRadius = 140f;
@@ -70,6 +74,7 @@ public class RepairSpot : MonoBehaviour, IInteractable
     public UnityEvent onNailHit;
     public UnityEvent onNailMissed;
     public UnityEvent<int> onRepairFinished;   // passes the score
+    public UnityEvent onCooldownEnded;         // this spot can be repaired again
 
     [Header("Audio")]
     [Tooltip("AudioSource for click/hammer sounds")]
@@ -82,6 +87,11 @@ public class RepairSpot : MonoBehaviour, IInteractable
 
     public bool IsRunning { get; private set; }
     public int LastScore { get; private set; }
+    public bool IsOnCooldown => Time.time < cooldownEndTime;
+    public float CooldownRemaining => Mathf.Max(0f, cooldownEndTime - Time.time);
+
+    float cooldownEndTime = float.NegativeInfinity;
+    Coroutine cooldownRoutine;
 
     int hitsThisRepair, roundsThisRepair;
 
@@ -115,7 +125,7 @@ public class RepairSpot : MonoBehaviour, IInteractable
 
     public void Interact()
     {
-        if (IsRunning || nails.Count == 0) return;
+        if (IsRunning || IsOnCooldown || nails.Count == 0) return;
         if (zoom == null) zoom = FindFirstObjectByType<ScreenZoomController>();
         if (zoom == null) { Debug.LogWarning("No ScreenZoomController on the player", this); return; }
 
@@ -286,7 +296,28 @@ public class RepairSpot : MonoBehaviour, IInteractable
             IsRunning = false;
             onRepairFinished.Invoke(score);
         });
+
+        // Quitting without hitting anything doesn't lock the spot.
+        if (hitsThisRepair > 0 && repairCooldown > 0f) StartCooldown();
+        else SetOutlineEnabled(true);
+    }
+
+    void StartCooldown()
+    {
+        cooldownEndTime = Time.time + repairCooldown;
+        if (cooldownRoutine != null) StopCoroutine(cooldownRoutine);
+        cooldownRoutine = StartCoroutine(CooldownRoutine());
+    }
+
+    // Outline stays off while cooling down so the player can see which
+    // windows/doors still need work.
+    IEnumerator CooldownRoutine()
+    {
+        SetOutlineEnabled(false);
+        while (IsOnCooldown) yield return null;
+        cooldownRoutine = null;
         SetOutlineEnabled(true);
+        onCooldownEnded.Invoke();
     }
 
     Transform PickNail()

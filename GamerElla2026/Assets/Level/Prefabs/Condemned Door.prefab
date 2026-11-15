@@ -2482,15 +2482,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5944654773601380006, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 0
+      value: 75.37935
       objectReference: {fileID: 0}
     - target: {fileID: 5944654773601380006, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.029
+      value: 0.00000012628561
       objectReference: {fileID: 0}
     - target: {fileID: 5944654773601380006, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -4.782
+      value: -17.264032
       objectReference: {fileID: 0}
     - target: {fileID: 5944654773601380006, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2691,6 +2691,7 @@ MonoBehaviour:
   shrinkTimeEnd: 0.8
   pauseBetween: 0.35
   missOnWrongClick: 1
+  repairCooldown: 15
   ringTexture: {fileID: 2800000, guid: 399b46898d6874f24b2590a4708ad3de, type: 3}
   ringStartRadius: 140
   ringEndRadius: 14
@@ -2716,6 +2717,9 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   onRepairFinished:
+    m_PersistentCalls:
+      m_Calls: []
+  onCooldownEnded:
     m_PersistentCalls:
       m_Calls: []
   sfxAudioSource: {fileID: 4764719110665300253}
