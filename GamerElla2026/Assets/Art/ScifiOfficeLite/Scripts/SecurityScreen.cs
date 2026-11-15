@@ -12,6 +12,8 @@ public class SecurityScreen : MonoBehaviour
     [SerializeField] GameObject recDot;
     [SerializeField] float blinkInterval = 0.5f;
 
+    [Header("Closeness Stage Events (Per Camera)")]
+    public UnityEvent onDetectedFar;
     public UnityEvent onReachedClose;
     public UnityEvent onCleared;
 
@@ -44,21 +46,22 @@ public class SecurityScreen : MonoBehaviour
         if (routine != null) StopCoroutine(routine);
         routine = null;
         SetState(State.Empty);
-        onCleared.Invoke();
+        onCleared?.Invoke();
     }
 
     IEnumerator Run()
     {
         SetState(State.Far);
+        onDetectedFar?.Invoke();
         yield return Hold(() => manager.CloseDelay);
 
         SetState(State.Close);
-        onReachedClose.Invoke();
+        onReachedClose?.Invoke();
         yield return Hold(() => manager.CloseDuration);
 
         routine = null;
         SetState(State.Empty);
-        onCleared.Invoke();
+        onCleared?.Invoke();
     }
 
     IEnumerator Hold(System.Func<float> duration)
@@ -177,7 +180,7 @@ public class SecurityScreen : MonoBehaviour
     }
 
     [ContextMenu("Preview/Empty")] void PreviewEmpty() => PreviewState(State.Empty);
-    [ContextMenu("Preview/Far")]   void PreviewFar()   => PreviewState(State.Far);
+    [ContextMenu("Preview/Far")] void PreviewFar() => PreviewState(State.Far);
     [ContextMenu("Preview/Close")] void PreviewClose() => PreviewState(State.Close);
 
     void PreviewState(State s)

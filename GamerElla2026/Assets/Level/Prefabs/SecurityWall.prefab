@@ -53,8 +53,24 @@ MonoBehaviour:
   - {fileID: 6445381654372182450}
   - {fileID: 4204345767458523836}
   - {fileID: 6146968357977806009}
+  roomLights:
+  - {fileID: 0}
+  emissiveLampRenderers: []
+  flickerIntervalMin: 0.04
+  flickerIntervalMax: 0.14
+  dimIntensityMultiplier: 0.15
+  spikeIntensityMultiplier: 1.5
+  flickerAudioSource: {fileID: 0}
+  flickerSounds:
+  - {fileID: 8300000, guid: 77be5942a2e2b8f4985e1f37ec3e4eb7, type: 3}
+  - {fileID: 8300000, guid: 7a4edd92bbc01bd4ba40c6589bba421e, type: 3}
+  - {fileID: 8300000, guid: e797d709e761b8c41a833384f409e120, type: 3}
+  - {fileID: 8300000, guid: 3861cef5bf316234dbaa9636cfefcdfd, type: 3}
+  - {fileID: 8300000, guid: fe0a079c5d54a75458deea281bf6fd66, type: 3}
+  flickerPitchRange: {x: 0.9, y: 1.15}
+  flickerVolume: 0.14
   spawnIntervalMin: 10
-  spawnIntervalMax: 25
+  spawnIntervalMax: 50
   maxActive: 1
   closeDelay: 15
   closeDuration: 5
