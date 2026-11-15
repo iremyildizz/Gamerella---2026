@@ -74,6 +74,8 @@ public class RepairSpot : MonoBehaviour, IInteractable
     public bool IsRunning { get; private set; }
     public int LastScore { get; private set; }
 
+    int hitsThisRepair, roundsThisRepair;
+
     ScreenZoomController zoom;
     RawImage ring;
     RawImage glow;
@@ -82,12 +84,16 @@ public class RepairSpot : MonoBehaviour, IInteractable
     Canvas canvas;
     int lastNail = -1;
 
+    public InteractableOutline outline;
+
     void Awake()
     {
         if (nails.Count == 0)
             nails = GetComponentsInChildren<Transform>(true)
                 .Where(t => t != transform && t.name.ToLower().Contains("nail")).ToList();
         if (nails.Count == 0) Debug.LogWarning($"{name}: no nails found", this);
+
+        outline = GetComponent<InteractableOutline>();
     }
 
     public void Interact()
@@ -98,7 +104,10 @@ public class RepairSpot : MonoBehaviour, IInteractable
 
         GetViewPose(out var pos, out var rot);
         if (zoom.ZoomToPose(pos, rot, exitOnClick: false, onArrived: () => StartCoroutine(Play())))
+        {
             IsRunning = true;
+            SetOutlineEnabled(false);
+        } 
     }
 
     void GetViewPose(out Vector3 pos, out Quaternion rot)
@@ -190,6 +199,8 @@ public class RepairSpot : MonoBehaviour, IInteractable
         var cam = zoom.PlayerCamera;
 
         int rounds = Random.Range(minRounds, maxRounds + 1);
+        roundsThisRepair = rounds;
+        hitsThisRepair = 0;
         for (int i = 0; i < rounds; i++)
         {
             Transform nail = PickNail();
@@ -221,6 +232,7 @@ public class RepairSpot : MonoBehaviour, IInteractable
                     if (d <= hitRadius)
                     {
                         hit = true; decided = true;
+                        hitsThisRepair++;
                         score += pointsPerHit + Mathf.RoundToInt(maxSpeedBonus * (1f - Mathf.Clamp01(t)));
                     }
                     else if (missOnWrongClick) decided = true;
@@ -243,6 +255,10 @@ public class RepairSpot : MonoBehaviour, IInteractable
     IEnumerator Finish(int score, CursorLockMode prevLock, bool prevVisible)
     {
         LastScore = score;
+        // Raise the house's protection by how many nails were hit
+        // (quitting early counts the remaining nails as missed).
+        if (HouseProtection.Instance != null && roundsThisRepair > 0)
+            HouseProtection.Instance.AddFromRepair(hitsThisRepair / (float)roundsThisRepair);
         yield return new WaitForSeconds(0.4f);
         Cursor.lockState = prevLock;
         Cursor.visible = prevVisible;
@@ -251,6 +267,7 @@ public class RepairSpot : MonoBehaviour, IInteractable
             IsRunning = false;
             onRepairFinished.Invoke(score);
         });
+        SetOutlineEnabled(true);
     }
 
     Transform PickNail()
@@ -327,5 +344,13 @@ public class RepairSpot : MonoBehaviour, IInteractable
         float scale = canvas.scaleFactor > 0f ? canvas.scaleFactor : 1f;
         ringRoot.anchoredPosition = screenPos / scale;
         ringRoot.sizeDelta = Vector2.one * (radius * 2f / scale);
+    }
+
+    public void SetOutlineEnabled(bool isEnabled)
+    {
+        if (outline != null)
+        {
+            outline.enabled = isEnabled;
+        }
     }
 }

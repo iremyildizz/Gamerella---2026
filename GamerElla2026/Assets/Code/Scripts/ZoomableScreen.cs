@@ -16,6 +16,8 @@ public class ZoomableScreen : MonoBehaviour, IInteractable
 
     static ScreenZoomController controller;
 
+    private InteractableOutline outline;
+
     void Awake()
     {
         if (screenQuad == null)
@@ -25,6 +27,8 @@ public class ZoomableScreen : MonoBehaviour, IInteractable
                 if (mr.name.StartsWith("ScreenImage")) { r = mr; break; }
             if (r != null) screenQuad = r.transform;
         }
+
+        outline = GetComponent<InteractableOutline>();
     }
 
     public void Interact()
@@ -36,5 +40,18 @@ public class ZoomableScreen : MonoBehaviour, IInteractable
             return;
         }
         controller.ZoomTo(this);
+
+        SetOutlineEnabled(false);
+    }
+    public void OnHoverExit()
+    {
+        SetOutlineEnabled(true);
+    }
+    public void SetOutlineEnabled(bool isEnabled)
+    {
+        if (outline != null)
+        {
+            outline.enabled = isEnabled;
+        }
     }
 }

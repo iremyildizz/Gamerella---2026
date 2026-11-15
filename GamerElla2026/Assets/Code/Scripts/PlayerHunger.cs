@@ -36,6 +36,15 @@ public class PlayerHunger : MonoBehaviour
         }
     }
 
+    public float Percent => maxHunger > 0f ? currentHunger / maxHunger : 0f;
+
+    // Lower hunger by an amount (used when sleeping).
+    public void Drain(float amount)
+    {
+        currentHunger = Mathf.Clamp(currentHunger - amount, 0f, maxHunger);
+        UpdateUI();
+    }
+
     public void ReplenishHunger()
     {
         currentHunger = maxHunger;
