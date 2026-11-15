@@ -238,16 +238,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: c7d5244a2002a4a60bb24a70f9049709, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Bed
-  fadeOutTime: 1.5
-  blackTime: 1.5
-  fadeInTime: 1.2
-  hungerCost: 30
-  protectionCost: 25
   sleepAllowedBelowPercent: 100
-  onFellAsleep:
-    m_PersistentCalls:
-      m_Calls: []
-  onWokeUp:
+  onWentToBed:
     m_PersistentCalls:
       m_Calls: []
   onNotTired:
@@ -464,6 +456,14 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4563480860453160152, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
+      propertyPath: hungerSlider
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 4563480860453160152, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
+      propertyPath: drainPercentPerMinute
+      value: 15
+      objectReference: {fileID: 0}
     - target: {fileID: 4580651783479466658, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
       propertyPath: m_Name
       value: Player
@@ -510,6 +510,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7443626600742214709, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
       propertyPath: playerHunger
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 8260751906503906692, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
+      propertyPath: crosshairImage
       value: 
       objectReference: {fileID: 0}
     m_RemovedComponents: []
@@ -562,12 +566,32 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 1175183183217701222, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175183183217701222, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 1.7369727
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175183183217701222, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 1.4424317
+      objectReference: {fileID: 0}
+    - target: {fileID: 1175183183217701222, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
       propertyPath: m_AnchoredPosition.y
       value: -24
       objectReference: {fileID: 0}
+    - target: {fileID: 1175183183217701222, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_ConstrainProportionsScale
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 1658540371440678497, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0.00012207031
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1658540371440678497, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -0.00012207031
       objectReference: {fileID: 0}
     - target: {fileID: 2491388920053497143, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -579,6 +603,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2631194450527708934, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 2631194450527708934, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_AnchorMin.y
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2907925454337230493, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
@@ -593,9 +621,73 @@ PrefabInstance:
       propertyPath: m_SizeDelta.x
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3256990020359344048, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3256990020359344048, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3256990020359344048, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3256990020359344048, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3256990020359344048, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: -80
+      objectReference: {fileID: 0}
+    - target: {fileID: 3256990020359344048, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: -10
+      objectReference: {fileID: 0}
+    - target: {fileID: 3256990020359344048, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3256990020359344048, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3502702265212523620, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
       propertyPath: m_MatchWidthOrHeight
       value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948616257660220599, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_Pivot.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948616257660220599, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_Pivot.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948616257660220599, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948616257660220599, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948616257660220599, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948616257660220599, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948616257660220599, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 40
+      objectReference: {fileID: 0}
+    - target: {fileID: 4948616257660220599, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: -10
       objectReference: {fileID: 0}
     - target: {fileID: 5151665672170151221, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
       propertyPath: m_Name
@@ -682,6 +774,18 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7275378956071986540, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 560
+      objectReference: {fileID: 0}
+    - target: {fileID: 7275378956071986540, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7275378956071986540, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 7275378956071986540, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -24
       objectReference: {fileID: 0}
@@ -692,6 +796,10 @@ PrefabInstance:
     - target: {fileID: 7544846228823105684, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
       propertyPath: testWarningInterval
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8365439509806162471, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 26.70105
       objectReference: {fileID: 0}
     m_RemovedComponents:
     - {fileID: 5082567684106381717, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
@@ -745,7 +853,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::HouseProtection
   maxProtection: 100
-  startProtection: 60
+  startProtection: 100
   drainPercentPerMinute: 3
   perfectRepairGain: 30
 --- !u!4 &693612958
@@ -926,7 +1034,7 @@ MonoBehaviour:
       minValue: 0
       maxValue: 100
       currentValue: 100
-    spacingBefore: 0
+    spacingBefore: 60
     spacingAfter: 0
   - profileSprite: {fileID: 4848293404440951141, guid: bc4910197fcec418b9a156a93b81e00e, type: 3}
     profileName: Sleep
@@ -937,7 +1045,7 @@ MonoBehaviour:
       minValue: 0
       maxValue: 100
       currentValue: 100
-    spacingBefore: 0
+    spacingBefore: 60
     spacingAfter: 0
   - profileSprite: {fileID: 2389193319765324094, guid: 40c314002461e41d790724edcf797783, type: 3}
     profileName: Protection
@@ -948,7 +1056,7 @@ MonoBehaviour:
       minValue: 0
       maxValue: 100
       currentValue: 100
-    spacingBefore: 0
+    spacingBefore: 60
     spacingAfter: 0
   rebuildOnStart: 1
   clearExistingPanels: 1
@@ -998,7 +1106,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::PlayerSleep
   maxSleep: 100
-  drainPercentPerMinute: 10
+  drainPercentPerMinute: 50
+  levels:
+  - name: Rested
+    fromPercent: 90
+    hungerCost: 5
+    protectionCost: 5
+  - name: Fine
+    fromPercent: 70
+    hungerCost: 15
+    protectionCost: 10
+  - name: Tired
+    fromPercent: 50
+    hungerCost: 25
+    protectionCost: 20
+  - name: Very tired
+    fromPercent: 25
+    hungerCost: 35
+    protectionCost: 30
+  - name: Exhausted
+    fromPercent: 0
+    hungerCost: 50
+    protectionCost: 45
+  passOutCostMultiplier: 1.5
+  passOutFadeTime: 0.6
+  fadeOutTime: 1.5
+  blackTime: 1.5
+  fadeInTime: 1.2
+  onFellAsleep:
+    m_PersistentCalls:
+      m_Calls: []
+  onPassedOut:
+    m_PersistentCalls:
+      m_Calls: []
+  onWokeUp:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &2061337637
 PrefabInstance:
   m_ObjectHideFlags: 0

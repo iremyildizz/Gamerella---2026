@@ -114,10 +114,14 @@ public class Fridge : MonoBehaviour, IInteractable
 
     private void OnFinishedEating()
     {
-        if (player != null && player.playerHunger != null)
-        {
-            player.playerHunger.ReplenishHunger();
-        }
+        // Use the player's reference, or find the hunger component if it's empty.
+        PlayerHunger hunger = player != null ? player.playerHunger : null;
+        if (hunger == null) hunger = FindAnyObjectByType<PlayerHunger>();
+
+        if (hunger != null)
+            hunger.ReplenishHunger();
+        else
+            Debug.LogWarning("Fridge: no PlayerHunger found on the player", this);
     }
 
     public void Interact()
