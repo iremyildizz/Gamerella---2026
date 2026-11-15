@@ -26,6 +26,9 @@ public class SciFiTerminalHUD : MonoBehaviour
     [SerializeField] private string loadingPrefix = "LOADING NEXT SEQUENCE";
     private const string AllowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
+    [Header("Save Settings")]
+    [SerializeField] private string terminalSaveId = "Monitor_01";
+
     [Header("Highlight Colors (Hex)")]
     [SerializeField] private string untypedColorHex = "#B0B8C0"; // Light Gray
     [SerializeField] private string correctColorHex = "#7DF9FF"; // Light Cyan
@@ -47,6 +50,11 @@ public class SciFiTerminalHUD : MonoBehaviour
     private bool isHackComplete = false;
     private Vector2 originalTargetPos;
 
+    private string KeyProgress => $"{terminalSaveId}_Progress";
+    private string KeyTargetCode => $"{terminalSaveId}_TargetCode";
+    private string KeyTypedText => $"{terminalSaveId}_TypedText";
+    private string KeySolved => $"{terminalSaveId}_IsSolved";
+
     private void OnEnable()
     {
         if (Keyboard.current != null)
@@ -57,6 +65,14 @@ public class SciFiTerminalHUD : MonoBehaviour
     {
         if (Keyboard.current != null)
             Keyboard.current.onTextInput -= OnTextInput;
+
+        // Save state immediately whenever the pop-up is closed or unloaded
+        SaveTerminalState();
+    }
+
+    private void OnApplicationQuit()
+    {
+        SaveTerminalState();
     }
 
     private void Start()
@@ -64,9 +80,7 @@ public class SciFiTerminalHUD : MonoBehaviour
         if (targetCodeText != null)
             originalTargetPos = targetCodeText.rectTransform.anchoredPosition;
 
-        currentProgress = 0f;
-        displayedProgress = 0f;
-        GenerateRandomCode();
+        LoadOrInitializeState();
         RefreshDisplay();
         UpdateProgressUI(true);
     }
@@ -90,6 +104,39 @@ public class SciFiTerminalHUD : MonoBehaviour
         }
     }
 
+    private void LoadOrInitializeState()
+    {
+        currentProgress = Mathf.Clamp01(PlayerPrefs.GetFloat(KeyProgress, 0f));
+        displayedProgress = currentProgress;
+        isHackComplete = PlayerPrefs.GetInt(KeySolved, 0) == 1 || currentProgress >= 1f;
+
+        string savedCode = PlayerPrefs.GetString(KeyTargetCode, "");
+        string savedTyped = PlayerPrefs.GetString(KeyTypedText, "");
+
+        // If we closed the screen mid-loading or before a code existed, generate a fresh code while keeping currentProgress
+        if (string.IsNullOrEmpty(savedCode) || savedCode.Length != codeLength || savedTyped.Length >= savedCode.Length)
+        {
+            GenerateRandomCode();
+        }
+        else
+        {
+            targetCode = savedCode;
+            currentTypedText = savedTyped;
+            isLoadingNextCode = false;
+        }
+    }
+
+    private void SaveTerminalState()
+    {
+        PlayerPrefs.SetFloat(KeyProgress, currentProgress);
+        PlayerPrefs.SetString(KeyTargetCode, targetCode);
+        PlayerPrefs.SetString(KeyTypedText, currentTypedText);
+        PlayerPrefs.SetInt(KeySolved, isHackComplete ? 1 : 0);
+        PlayerPrefs.Save();
+
+        OnHackProgressChanged?.Invoke(currentProgress);
+    }
+
     private void GenerateRandomCode()
     {
         StringBuilder sb = new StringBuilder(codeLength);
@@ -102,6 +149,7 @@ public class SciFiTerminalHUD : MonoBehaviour
         targetCode = sb.ToString();
         currentTypedText = "";
         isLoadingNextCode = false;
+        SaveTerminalState();
     }
 
     private void OnTextInput(char character)
@@ -141,6 +189,7 @@ public class SciFiTerminalHUD : MonoBehaviour
 
         cursorVisible = true;
         cursorTimer = 0f;
+        SaveTerminalState();
         RefreshDisplay();
         CheckCodeFinished();
     }
@@ -150,15 +199,17 @@ public class SciFiTerminalHUD : MonoBehaviour
         if (currentProgress >= 1f)
         {
             isHackComplete = true;
-            RefreshInputDisplay();
-            if (targetCodeText != null)
-                targetCodeText.text = $"<color={correctColorHex}>ACCESS GRANTED</color>";
+            SaveTerminalState();
+            RefreshDisplay();
             return;
         }
 
-        // If the player finished typing the current code line and hasn't reached 100%, load a new code
         if (currentTypedText.Length >= targetCode.Length)
         {
+            // Clear typed text before starting loading transition so closing mid-load doesn't restore a finished line
+            currentTypedText = "";
+            targetCode = "";
+            SaveTerminalState();
             StartCoroutine(LoadNextCodeWithDotsRoutine());
         }
     }
@@ -167,10 +218,8 @@ public class SciFiTerminalHUD : MonoBehaviour
     {
         isLoadingNextCode = true;
 
-        // Brief pause so the final typed character's color is visible
         yield return new WaitForSeconds(0.15f);
 
-        currentTypedText = "";
         if (terminalInputText != null)
             terminalInputText.text = promptPrefix;
 
@@ -185,7 +234,7 @@ public class SciFiTerminalHUD : MonoBehaviour
                 targetCodeText.text = $"<color={correctColorHex}>{loadingPrefix}{dots}</color>";
             }
 
-            dotCount = (dotCount % 3) + 1; // Cycles 1 (.) -> 2 (..) -> 3 (...) -> 1 (.)
+            dotCount = (dotCount % 3) + 1;
             yield return new WaitForSeconds(dotStepInterval);
             elapsed += dotStepInterval;
         }
@@ -212,6 +261,14 @@ public class SciFiTerminalHUD : MonoBehaviour
 
     private void RefreshDisplay()
     {
+        if (isHackComplete)
+        {
+            if (targetCodeText != null)
+                targetCodeText.text = $"<color={correctColorHex}>ACCESS GRANTED</color>";
+            RefreshInputDisplay();
+            return;
+        }
+
         RefreshTargetDisplay();
         RefreshInputDisplay();
     }
@@ -263,4 +320,30 @@ public class SciFiTerminalHUD : MonoBehaviour
         if (progressPercentText != null)
             progressPercentText.text = $"{Mathf.RoundToInt(value * 100f)}%";
     }
+    public static event System.Action<float> OnHackProgressChanged;
+
+    public static float GetSavedProgress(string saveId = "Monitor_01")
+    {
+        return Mathf.Clamp01(PlayerPrefs.GetFloat($"{saveId}_Progress", 0f));
+    }
+
+
+    // Call this from a "New Game" button or debug menu when you want to wipe saved hack progress
+    public void ResetSavedTerminalData()
+    {
+        PlayerPrefs.DeleteKey(KeyProgress);
+        PlayerPrefs.DeleteKey(KeyTargetCode);
+        PlayerPrefs.DeleteKey(KeyTypedText);
+        PlayerPrefs.DeleteKey(KeySolved);
+        PlayerPrefs.Save();
+
+        currentProgress = 0f;
+        displayedProgress = 0f;
+        isHackComplete = false;
+        GenerateRandomCode();
+        RefreshDisplay();
+        UpdateProgressUI(true);
+    }
+
+
 }
