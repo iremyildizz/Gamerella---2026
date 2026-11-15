@@ -23,8 +23,6 @@ public class SecurityScreen : MonoBehaviour
 
     void Awake()
     {
-        // Each camera must blink its own dot. If the field is empty or points to
-        // a dot on another camera, use this camera's child named "RecDot".
         if (recDot == null || !recDot.transform.IsChildOf(transform))
         {
             var child = FindChild(transform, "RecDot");
@@ -63,8 +61,6 @@ public class SecurityScreen : MonoBehaviour
         onCleared.Invoke();
     }
 
-    // Waits while blinking. Reads the duration every frame so difficulty
-    // changes also affect silhouettes that are already on screen.
     IEnumerator Hold(System.Func<float> duration)
     {
         float progress = 0f;
@@ -85,12 +81,15 @@ public class SecurityScreen : MonoBehaviour
     void SetState(State s)
     {
         Current = s;
-        screen.sharedMaterial = s switch
+        var mats = screen.sharedMaterials;
+        if (mats.Length == 0) mats = new Material[1];
+        mats[0] = s switch
         {
             State.Far => farMat,
             State.Close => closeMat,
             _ => emptyMat,
         };
+        screen.sharedMaterials = mats;
         if (s == State.Empty && recDot != null) recDot.SetActive(false);
     }
 
