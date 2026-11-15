@@ -36,6 +36,11 @@ public class PlayerInteractor : MonoBehaviour
         {
             if (interactAction.WasPressedThisFrame())
             {
+                if (currentInteractable is MonoBehaviour targetBehaviour)
+                {
+                    SimpleInventory.Instance?.OnPlayerInteractedWith(targetBehaviour.gameObject);
+                }
+
                 currentInteractable.Interact();
             }
 
