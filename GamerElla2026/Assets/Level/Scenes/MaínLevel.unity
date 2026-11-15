@@ -1304,6 +1304,37 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &212353046
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 212353047}
+  m_Layer: 7
+  m_Name: Insert Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &212353047
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 212353046}
+  serializedVersion: 2
+  m_LocalRotation: {x: -0, y: -0.76604444, z: -0, w: 0.6427876}
+  m_LocalPosition: {x: 0.308, y: -0.48, z: -0.077}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1474604097}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &212617091
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2309,6 +2340,37 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::InteractableOutline
   outlineMaterial: {fileID: 2100000, guid: 63f70abb0cdbc934aa02fce56b30d9e5, type: 2}
+--- !u!1 &313684907
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 313684908}
+  m_Layer: 7
+  m_Name: Insert Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &313684908
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 313684907}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0.532, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1366284764}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &315341990
 GameObject:
   m_ObjectHideFlags: 0
@@ -9153,6 +9215,14 @@ PrefabInstance:
       propertyPath: cameraToCharge
       value: 
       objectReference: {fileID: 212617092}
+    - target: {fileID: 7958580933721389010, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: batteryInsertTarget
+      value: 
+      objectReference: {fileID: 313684908}
+    - target: {fileID: 7958580933721389010, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: batteryVisualPrefab
+      value: 
+      objectReference: {fileID: 1123693314251274, guid: b741fa043c0908c499bb320804aa111b, type: 3}
     - target: {fileID: 8700245731760088208, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -14.975464
@@ -9195,7 +9265,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8700245731760088208, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 313684908}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
 --- !u!4 &1366284764 stripped
@@ -9997,6 +10070,14 @@ PrefabInstance:
       propertyPath: cameraToCharge
       value: 
       objectReference: {fileID: 212617094}
+    - target: {fileID: 7958580933721389010, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: batteryInsertTarget
+      value: 
+      objectReference: {fileID: 212353047}
+    - target: {fileID: 7958580933721389010, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: batteryVisualPrefab
+      value: 
+      objectReference: {fileID: 1123693314251274, guid: b741fa043c0908c499bb320804aa111b, type: 3}
     - target: {fileID: 8700245731760088208, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
       propertyPath: m_LocalPosition.x
       value: -12.3448715
@@ -10039,7 +10120,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8700245731760088208, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      insertIndex: 0
+      addedObject: {fileID: 212353047}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
 --- !u!4 &1474604097 stripped
@@ -12219,7 +12303,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1658540371440678497, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000030517578
+      value: 0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 2631194450527708934, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
       propertyPath: m_AnchorMax.x
@@ -12334,6 +12418,37 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
+--- !u!1 &1762810735
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1762810736}
+  m_Layer: 7
+  m_Name: Insert Point
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1762810736
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1762810735}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: -0.037}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1842013039}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1772489150
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12762,6 +12877,14 @@ PrefabInstance:
       propertyPath: cameraToCharge
       value: 
       objectReference: {fileID: 212617093}
+    - target: {fileID: 7958580933721389010, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: batteryInsertTarget
+      value: 
+      objectReference: {fileID: 1762810736}
+    - target: {fileID: 7958580933721389010, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      propertyPath: batteryVisualPrefab
+      value: 
+      objectReference: {fileID: 1123693314251274, guid: b741fa043c0908c499bb320804aa111b, type: 3}
     - target: {fileID: 8700245731760088208, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
       propertyPath: m_LocalPosition.x
       value: 0
@@ -12804,7 +12927,10 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
-    m_AddedGameObjects: []
+    m_AddedGameObjects:
+    - targetCorrespondingSourceObject: {fileID: 8700245731760088208, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1762810736}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f58da2ee13683174d9af1f4ff407a80f, type: 3}
 --- !u!4 &1842013039 stripped
