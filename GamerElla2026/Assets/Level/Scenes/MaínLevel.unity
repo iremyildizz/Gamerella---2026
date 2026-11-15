@@ -1056,6 +1056,10 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 4731816977674781583, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
+      propertyPath: outline
+      value: 
+      objectReference: {fileID: 492931447}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -2258,6 +2262,17 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0963ef4e91fd7114b8aaa3ba8205ab68, type: 3}
+--- !u!114 &492931447 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 4500702398657030257, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
+  m_PrefabInstance: {fileID: 212617091}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2a2355d5f1187f442821a96cee7279fb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::InteractableOutline
 --- !u!1001 &494705681
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -6263,10 +6278,7 @@ PrefabInstance:
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents:
-    - targetCorrespondingSourceObject: {fileID: 1878900542511088742, guid: f75682a77eb22430eb4cb839cf466bbd, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 1966406615}
+    m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f75682a77eb22430eb4cb839cf466bbd, type: 3}
 --- !u!1 &1299297238
 GameObject:
@@ -9075,24 +9087,6 @@ Transform:
   m_CorrespondingSourceObject: {fileID: 9095684233992045187, guid: 2dc302b266fb645468046b3be6f8d332, type: 3}
   m_PrefabInstance: {fileID: 1960076919}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1966406608 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 1878900542511088742, guid: f75682a77eb22430eb4cb839cf466bbd, type: 3}
-  m_PrefabInstance: {fileID: 1293454429}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1966406615
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1966406608}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2a2355d5f1187f442821a96cee7279fb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::InteractableOutline
-  outlineMaterial: {fileID: 2100000, guid: 63f70abb0cdbc934aa02fce56b30d9e5, type: 2}
 --- !u!1 &1994951221
 GameObject:
   m_ObjectHideFlags: 0
