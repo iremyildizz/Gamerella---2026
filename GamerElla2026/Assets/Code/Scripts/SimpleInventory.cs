@@ -1,16 +1,23 @@
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 public class SimpleInventory : MonoBehaviour
 {
     public static SimpleInventory Instance { get; private set; }
 
-    [Header("HUD Display")]
-    [SerializeField] private TextMeshProUGUI inventoryStatusText;
-    [SerializeField] private string holdingBatteryText = "Inventory: Battery";
-    [SerializeField] private string emptyInventoryText = "Inventory: Empty";
+    [Header("Inventory UI Elements")]
+    [SerializeField] private GameObject inventoryBadgePanel; // Parent UI Panel holding icon + text (NOT Canvas!)
+    [SerializeField] private Image batteryIconImage;         // UI Image using battery.png
+    [SerializeField] private TextMeshProUGUI inventoryText;
+
+    [Header("Display Options")]
+    [SerializeField] private bool hideWhenEmpty = true;
+    [SerializeField] private string holdingText = "1x Battery";
+    [SerializeField] private string emptyText = "No Battery";
 
     public bool HasBattery { get; private set; } = false;
+    private bool isSuppressedByPrompt = false;
 
     private void Awake()
     {
@@ -30,8 +37,14 @@ public class SimpleInventory : MonoBehaviour
     public void GiveBattery()
     {
         HasBattery = true;
+        isSuppressedByPrompt = false;
+
+        // Hide any active locker prompt immediately when picking up a battery
+        CameraLocker activeLocker = FindFirstObjectByType<CameraLocker>();
+        if (activeLocker != null)
+            activeLocker.HidePromptImmediately();
+
         RefreshUI();
-        Debug.Log("Picked up a battery.");
     }
 
     public void RemoveBattery(string reason = "")
@@ -40,31 +53,65 @@ public class SimpleInventory : MonoBehaviour
 
         HasBattery = false;
         RefreshUI();
-
-        if (!string.IsNullOrEmpty(reason))
-            Debug.Log($"Battery removed: {reason}");
     }
 
     /// <summary>
-    /// Call this from your Player interaction raycast script right before or after calling target.Interact().
-    /// If the player interacts with anything other than a BatteryPickup or CameraLocker, the battery is removed.
+    /// Temporarily hides or restores the inventory UI when another HUD prompt (like LockerPromptText) is active.
     /// </summary>
-    public void HandleObjectInteraction(GameObject interactedObject)
+    public void SetSuppressedByPrompt(bool suppressed)
     {
-        if (!HasBattery || interactedObject == null) return;
+        isSuppressedByPrompt = suppressed;
+        RefreshUI();
+    }
 
-        bool isBatterySource = interactedObject.GetComponentInParent<BatteryPickup>() != null;
-        bool isCameraLocker = interactedObject.CompareTag("CameraLocker"); // Ready for when you add your locker
+    public void OnPlayerInteractedWith(GameObject target)
+    {
+        if (!HasBattery || target == null) return;
 
-        if (!isBatterySource && !isCameraLocker)
+        if (target.GetComponentInParent<BatteryPickup>() != null)
+            return;
+
+        if (IsBatteryLocker(target))
+            return;
+
+        RemoveBattery();
+    }
+
+    private bool IsBatteryLocker(GameObject target)
+    {
+        Transform current = target.transform;
+        while (current != null)
         {
-            RemoveBattery($"Interacted with {interactedObject.name} instead of Camera Locker.");
+            if (current.GetComponent<CameraLocker>() != null)
+                return true;
+
+            string cleanName = current.name.Replace(" ", "").ToLowerInvariant();
+            if (cleanName.Contains("batterylocker") || cleanName.Contains("cameralocker"))
+                return true;
+
+            current = current.parent;
         }
+
+        return target.CompareTag("BatteryLocker") || target.CompareTag("CameraLocker");
     }
 
     private void RefreshUI()
     {
-        if (inventoryStatusText == null) return;
-        inventoryStatusText.text = HasBattery ? holdingBatteryText : emptyInventoryText;
+        bool shouldShowBadge = !isSuppressedByPrompt && (!hideWhenEmpty || HasBattery);
+
+        if (inventoryBadgePanel != null)
+            inventoryBadgePanel.SetActive(shouldShowBadge);
+
+        if (batteryIconImage != null)
+        {
+            batteryIconImage.gameObject.SetActive(shouldShowBadge);
+            batteryIconImage.color = HasBattery ? Color.white : new Color(1f, 1f, 1f, 0.25f);
+        }
+
+        if (inventoryText != null)
+        {
+            inventoryText.gameObject.SetActive(shouldShowBadge);
+            inventoryText.text = HasBattery ? holdingText : emptyText;
+        }
     }
 }
