@@ -24,7 +24,7 @@ public class SciFiTerminalHUD : MonoBehaviour
     [SerializeField] private float loadingDuration = 1.2f;
     [SerializeField] private float dotStepInterval = 0.25f;
     [SerializeField] private string loadingPrefix = "LOADING NEXT SEQUENCE";
-    private const string AllowedChars = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
+    private const string AllowedChars = "ABCD0123456789";
 
     [Header("Save Settings")]
     [SerializeField] private string terminalSaveId = "Monitor_01";
