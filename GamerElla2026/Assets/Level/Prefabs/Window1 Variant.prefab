@@ -738,19 +738,19 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2562289859657410404, guid: 3746952bb7613644095ebcb852568623, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -4.87256
+      value: 7.58
       objectReference: {fileID: 0}
     - target: {fileID: 2562289859657410404, guid: 3746952bb7613644095ebcb852568623, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.943
+      value: 1.535
       objectReference: {fileID: 0}
     - target: {fileID: 2562289859657410404, guid: 3746952bb7613644095ebcb852568623, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.31
+      value: -9.982
       objectReference: {fileID: 0}
     - target: {fileID: 2562289859657410404, guid: 3746952bb7613644095ebcb852568623, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 1
+      value: -0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 2562289859657410404, guid: 3746952bb7613644095ebcb852568623, type: 3}
       propertyPath: m_LocalRotation.x
@@ -758,11 +758,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2562289859657410404, guid: 3746952bb7613644095ebcb852568623, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0
+      value: 0.7071068
       objectReference: {fileID: 0}
     - target: {fileID: 2562289859657410404, guid: 3746952bb7613644095ebcb852568623, type: 3}
       propertyPath: m_LocalRotation.z
-      value: 0
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 2562289859657410404, guid: 3746952bb7613644095ebcb852568623, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -770,7 +770,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2562289859657410404, guid: 3746952bb7613644095ebcb852568623, type: 3}
       propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
+      value: 270
       objectReference: {fileID: 0}
     - target: {fileID: 2562289859657410404, guid: 3746952bb7613644095ebcb852568623, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
@@ -839,6 +839,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 2937690155903319518, guid: 3746952bb7613644095ebcb852568623, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8220878445854278209}
+    - targetCorrespondingSourceObject: {fileID: 2937690155903319518, guid: 3746952bb7613644095ebcb852568623, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5306750527159378182}
   m_SourcePrefab: {fileID: 100100000, guid: 3746952bb7613644095ebcb852568623, type: 3}
 --- !u!4 &1249998185994772188 stripped
 Transform:
@@ -1057,8 +1060,8 @@ AudioSource:
   SpatializePostEffects: 0
   Priority: 128
   DopplerLevel: 1
-  MinDistance: 1
-  MaxDistance: 500
+  MinDistance: 0.9770098
+  MaxDistance: 50
   Pan2D: 0
   rolloffMode: 0
   BypassEffects: 0
@@ -1133,6 +1136,71 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &5306750527159378182
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1878900542511088742}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4d48b3a1e58eb04dba1288636c2ed17, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::BunkerOpeninAudio
+  audioSource: {fileID: 8220878445854278209}
+  farSounds:
+  - {fileID: 8300000, guid: 3363b53c91417d347bb36f2c5ce3b956, type: 3}
+  - {fileID: 8300000, guid: 42892e920a34ad4429fbb6016a18ecaf, type: 3}
+  - {fileID: 8300000, guid: f62fbdec4f1972547bd654996b90273e, type: 3}
+  - {fileID: 8300000, guid: a306dcb2b5324434a9130e3db6fac4f2, type: 3}
+  - {fileID: 8300000, guid: 709359978dc47944189fc5f9ad8a59e5, type: 3}
+  loopFarSound: 0
+  farVolume: 0.1
+  closeSounds:
+  - {fileID: 8300000, guid: abb3c2005b173d64bbc0fa1df10c4251, type: 3}
+  - {fileID: 8300000, guid: 599fdc7b5586e304cb9fe799ba290ba4, type: 3}
+  - {fileID: 8300000, guid: 9449e73143d8cc541b61dfea44eb26de, type: 3}
+  - {fileID: 8300000, guid: d98a25723e5755c4aa04b798cb8fdaa4, type: 3}
+  - {fileID: 8300000, guid: d48949a40463ebb41a925df9871da7c9, type: 3}
+  - {fileID: 8300000, guid: abcb37a2a3946c640a49b744af624398, type: 3}
+  loopCloseSound: 1
+  closeVolume: 0.4
+  zombieDyingSounds:
+  - {fileID: 8300000, guid: 7b948207594a15a47af24bcdc2d04511, type: 3}
+  - {fileID: 8300000, guid: 6620f7228db57e8489fdb32acd3c7fc1, type: 3}
+  - {fileID: 8300000, guid: f390388d606ca7943a522d3282e76024, type: 3}
+  - {fileID: 8300000, guid: 58d169f6adb470643b33a4a364c0e825, type: 3}
+  - {fileID: 8300000, guid: 4e1de515d80b0aa4989f1aef778cd68a, type: 3}
+  laserZapOrExplosionSounds:
+  - {fileID: 8300000, guid: 401e04bd3c6394643a696ccf64218780, type: 3}
+  - {fileID: 8300000, guid: c9436cdcfdc2ba94e88a325a5def2b1c, type: 3}
+  - {fileID: 8300000, guid: 8a6060e8fe887c349910bf2a70d1cd1e, type: 3}
+  deathVolume: 0.7
+  randomZombieSounds:
+  - {fileID: 8300000, guid: 3363b53c91417d347bb36f2c5ce3b956, type: 3}
+  - {fileID: 8300000, guid: 42892e920a34ad4429fbb6016a18ecaf, type: 3}
+  - {fileID: 8300000, guid: f62fbdec4f1972547bd654996b90273e, type: 3}
+  - {fileID: 8300000, guid: a306dcb2b5324434a9130e3db6fac4f2, type: 3}
+  - {fileID: 8300000, guid: 709359978dc47944189fc5f9ad8a59e5, type: 3}
+  - {fileID: 8300000, guid: abb3c2005b173d64bbc0fa1df10c4251, type: 3}
+  - {fileID: 8300000, guid: 599fdc7b5586e304cb9fe799ba290ba4, type: 3}
+  - {fileID: 8300000, guid: 9449e73143d8cc541b61dfea44eb26de, type: 3}
+  - {fileID: 8300000, guid: d98a25723e5755c4aa04b798cb8fdaa4, type: 3}
+  - {fileID: 8300000, guid: d48949a40463ebb41a925df9871da7c9, type: 3}
+  - {fileID: 8300000, guid: abcb37a2a3946c640a49b744af624398, type: 3}
+  - {fileID: 8300000, guid: 58e37e3fc8b79ab4d8246c962f5dfb98, type: 3}
+  - {fileID: 8300000, guid: 4d56bb6f14a65da4ab21e4075f9b816f, type: 3}
+  - {fileID: 8300000, guid: 20aa18f741da25c4fadbf96f02f923c7, type: 3}
+  - {fileID: 8300000, guid: 1fe9c8a70414c264e98709abdaf4fe7f, type: 3}
+  - {fileID: 8300000, guid: 14b815c8c79194f4286870d76219846c, type: 3}
+  - {fileID: 8300000, guid: fd52c9d1f08954c4fbf6d101df1c4c3c, type: 3}
+  enableRandomSounds: 1
+  onlyWhenZombiePresent: 1
+  randomIntervalMin: 4
+  randomIntervalMax: 30
+  randomSoundVolume: 0.2
+  pitchRange: {x: 0.93, y: 1.07}
 --- !u!1001 &5259985994829904634
 PrefabInstance:
   m_ObjectHideFlags: 0

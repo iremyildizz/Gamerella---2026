@@ -15,6 +15,7 @@ public class SecurityScreen : MonoBehaviour
     [Header("Closeness Stage Events (Per Camera)")]
     public UnityEvent onDetectedFar;
     public UnityEvent onReachedClose;
+    public UnityEvent onZombieDied;
     public UnityEvent onCleared;
 
     public State Current { get; private set; } = State.Empty;
@@ -112,6 +113,12 @@ public class SecurityScreen : MonoBehaviour
                     float lightIntensity, float lightRange)
     {
         bool hadSilhouette = HasSilhouette;
+        if (hadSilhouette)
+        {
+            Clear();              // Resets screen & stops close/far loops
+            onZombieDied?.Invoke(); // Plays zombie dying / laser scream sound
+        }
+
         if (hadSilhouette) Clear();   // hidden under the flash
 
         if (flashMaterial != null)
