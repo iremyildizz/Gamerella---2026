@@ -15,6 +15,17 @@ public class Fridge : MonoBehaviour, IInteractable
     public Image loadingRing;
     public float eatDuration = 3f;
 
+    [Header("Audio Sources")]
+    [Tooltip("AudioSource for door open/close sounds")]
+    public AudioSource doorAudioSource;
+    [Tooltip("Separate AudioSource for the looping eating sound")]
+    public AudioSource eatingAudioSource;
+
+    [Header("Audio Clips")]
+    public AudioClip openSound;
+    public AudioClip closeSound;
+    public AudioClip eatingSound;
+
     [Header("Player Reference")]
     public PlayerCharacter3D player;
 
@@ -27,6 +38,17 @@ public class Fridge : MonoBehaviour, IInteractable
 
     void Start()
     {
+        if (doorAudioSource != null)
+        {
+            doorAudioSource.playOnAwake = false;
+        }
+
+        if (eatingAudioSource != null)
+        {
+            eatingAudioSource.playOnAwake = false;
+            eatingAudioSource.loop = true;
+        }
+
         if (doorHinge == null)
         {
             Debug.LogWarning($"DoorHinge not assigned on {gameObject.name}");
@@ -61,6 +83,12 @@ public class Fridge : MonoBehaviour, IInteractable
     {
         if (isOpen && isHolding && !hasEatenThisOpen)
         {
+            if (eatingAudioSource != null && !eatingAudioSource.isPlaying && eatingSound != null)
+            {
+                eatingAudioSource.clip = eatingSound;
+                eatingAudioSource.Play();
+            }
+
             eatProgress += Time.deltaTime / eatDuration;
 
             if (loadingRing != null)
@@ -72,19 +100,21 @@ public class Fridge : MonoBehaviour, IInteractable
             if (eatProgress >= 1f)
             {
                 hasEatenThisOpen = true;
+                StopEatingSound();
                 ResetLoadingRing();
                 OnFinishedEating();
             }
         }
         else if (eatProgress > 0f)
         {
+            StopEatingSound();
             ResetLoadingRing();
         }
     }
 
     private void OnFinishedEating()
     {
-        if (player.playerHunger != null)
+        if (player != null && player.playerHunger != null)
         {
             player.playerHunger.ReplenishHunger();
         }
@@ -92,6 +122,11 @@ public class Fridge : MonoBehaviour, IInteractable
 
     public void Interact()
     {
+        if (!isOpen && doorAudioSource != null && openSound != null)
+        {
+            doorAudioSource.PlayOneShot(openSound);
+        }
+
         isOpen = true;
     }
 
@@ -102,15 +137,30 @@ public class Fridge : MonoBehaviour, IInteractable
         if (!holding)
         {
             hasEatenThisOpen = false;
+            StopEatingSound();
         }
     }
 
     public void OnHoverExit()
     {
+        if (isOpen && doorAudioSource != null && closeSound != null)
+        {
+            doorAudioSource.PlayOneShot(closeSound);
+        }
+
         isOpen = false;
         isHolding = false;
         hasEatenThisOpen = false;
+        StopEatingSound();
         ResetLoadingRing();
+    }
+
+    private void StopEatingSound()
+    {
+        if (eatingAudioSource != null && eatingAudioSource.isPlaying)
+        {
+            eatingAudioSource.Stop();
+        }
     }
 
     private void ResetLoadingRing()
