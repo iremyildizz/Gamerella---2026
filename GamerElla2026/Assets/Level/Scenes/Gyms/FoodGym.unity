@@ -416,6 +416,31 @@ MonoBehaviour:
   m_ShadowLayerMask: 1
   m_RenderingLayers: 1
   m_ShadowRenderingLayers: 1
+--- !u!4 &1998140212 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6456093037875846447, guid: 9c5e47ae2fa982a4887bf3f5e657a1a5, type: 3}
+  m_PrefabInstance: {fileID: 1843038820504406423}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &2097291741 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 9097385094766317180, guid: 9c5e47ae2fa982a4887bf3f5e657a1a5, type: 3}
+  m_PrefabInstance: {fileID: 1843038820504406423}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &2097291747
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2097291741}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81832c048c9bf4b44a5141903ade34b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Fridge
+  doorHinge: {fileID: 1998140212}
+  openAngle: 100
+  swingSpeed: 6
 --- !u!1001 &1843038820504406423
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -468,10 +493,14 @@ PrefabInstance:
       propertyPath: m_Name
       value: Cooler Fridge
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 133310701199224421, guid: 9c5e47ae2fa982a4887bf3f5e657a1a5, type: 3}
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
-    m_AddedComponents: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 9097385094766317180, guid: 9c5e47ae2fa982a4887bf3f5e657a1a5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 2097291747}
   m_SourcePrefab: {fileID: 100100000, guid: 9c5e47ae2fa982a4887bf3f5e657a1a5, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
