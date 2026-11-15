@@ -3863,7 +3863,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -568, y: -332.5}
+  m_AnchoredPosition: {x: 120, y: 36}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &625614530
@@ -5273,7 +5273,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: -568, y: 50}
+  m_AnchoredPosition: {x: 120, y: 50}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &849060583
@@ -6002,6 +6002,10 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 0}
     - target: {fileID: 4764719110665300253, guid: 52d155ae33496427d815c95c7bcccde2, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4764719110665300253, guid: 52d155ae33496427d815c95c7bcccde2, type: 3}
       propertyPath: MaxDistance
       value: 22
       objectReference: {fileID: 0}
@@ -6560,6 +6564,10 @@ PrefabInstance:
     - target: {fileID: 1878900542511088742, guid: f75682a77eb22430eb4cb839cf466bbd, type: 3}
       propertyPath: m_Name
       value: Window1 for C4
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557479031760756589, guid: f75682a77eb22430eb4cb839cf466bbd, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4557479031760756589, guid: f75682a77eb22430eb4cb839cf466bbd, type: 3}
       propertyPath: MaxDistance
@@ -8603,6 +8611,10 @@ PrefabInstance:
     - target: {fileID: 1878900542511088742, guid: f75682a77eb22430eb4cb839cf466bbd, type: 3}
       propertyPath: m_Name
       value: Window1 for C3
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557479031760756589, guid: f75682a77eb22430eb4cb839cf466bbd, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
       objectReference: {fileID: 0}
     - target: {fileID: 4557479031760756589, guid: f75682a77eb22430eb4cb839cf466bbd, type: 3}
       propertyPath: MaxDistance
@@ -11105,6 +11117,10 @@ PrefabInstance:
       value: Window1 for C1
       objectReference: {fileID: 0}
     - target: {fileID: 4557479031760756589, guid: f75682a77eb22430eb4cb839cf466bbd, type: 3}
+      propertyPath: m_Volume
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 4557479031760756589, guid: f75682a77eb22430eb4cb839cf466bbd, type: 3}
       propertyPath: MaxDistance
       value: 22
       objectReference: {fileID: 0}
@@ -12150,7 +12166,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1658540371440678497, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00015258789
+      value: 0.000030517578
       objectReference: {fileID: 0}
     - target: {fileID: 2631194450527708934, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
       propertyPath: m_AnchorMax.x
@@ -13124,7 +13140,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: -28.649}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -681.2, y: -332.9}
+  m_AnchoredPosition: {x: 56, y: 37}
   m_SizeDelta: {x: 40, y: 40}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1994951223
