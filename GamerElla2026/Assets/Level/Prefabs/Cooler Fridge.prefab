@@ -314,9 +314,9 @@ GameObject:
   - component: {fileID: 2971973483914760610}
   - component: {fileID: 6025772070429719268}
   - component: {fileID: 8546928432373909200}
-  - component: {fileID: 133310701199224421}
   - component: {fileID: 5575986547221876354}
   - component: {fileID: 503268527706136947}
+  - component: {fileID: 9043750909959633803}
   m_Layer: 7
   m_Name: Cooler Fridge
   m_TagString: Untagged
@@ -400,18 +400,6 @@ MeshRenderer:
   m_SortingOrder: 0
   m_MaskInteraction: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!114 &133310701199224421
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9097385094766317180}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 2ca129bd8ad4b2548b30da328c5c7f03, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: Assembly-CSharp::TestInteractable
 --- !u!114 &5575986547221876354
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -446,6 +434,21 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 0.9067547, y: 2.3709755, z: 0.8090296}
   m_Center: {x: 0.008264333, y: 1.1854877, z: -0.044777617}
+--- !u!114 &9043750909959633803
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9097385094766317180}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81832c048c9bf4b44a5141903ade34b2, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Fridge
+  doorHinge: {fileID: 6456093037875846447}
+  openAngle: 100
+  swingSpeed: 6
 --- !u!1 &9132373124189591027
 GameObject:
   m_ObjectHideFlags: 0

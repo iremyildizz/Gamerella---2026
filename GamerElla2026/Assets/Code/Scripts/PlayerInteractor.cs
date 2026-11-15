@@ -54,6 +54,10 @@ public class PlayerInteractor : MonoBehaviour
 
         if (currentInteractable != previousInteractable)
         {
+            previousInteractable?.OnHoverExit();
+
+            currentInteractable?.OnHoverEnter();
+
             if (currentOutline != null)
             {
                 currentOutline.SetOutline(false);
