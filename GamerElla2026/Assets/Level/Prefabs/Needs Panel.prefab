@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5389421965545538016}
   - component: {fileID: 3502702265212523620}
   - component: {fileID: 9060765236061264687}
+  - component: {fileID: 7544846228823105684}
   m_Layer: 5
   m_Name: Needs Panel
   m_TagString: Untagged
@@ -104,6 +105,34 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &7544846228823105684
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5151665672170151221}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ea1d8f4557bbe4426b87670007063922, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::TacticalHUD
+  tacticalPanel: {fileID: 1579455459862017261}
+  warningPopup: {fileID: 3215796269768693219}
+  warningMessage: {fileID: 0}
+  panelStartsOpen: 0
+  toggleKey: 31
+  testWarningInterval: 5
+  skipWhilePanelOpen: 1
+  onWarningShown:
+    m_PersistentCalls:
+      m_Calls: []
+  onPanelOpened:
+    m_PersistentCalls:
+      m_Calls: []
+  onPanelClosed:
+    m_PersistentCalls:
+      m_Calls: []
 --- !u!1001 &833565309834981802
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -291,6 +320,11 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 114c253a7d453414ab9b9b31e24e8c6e, type: 3}
+--- !u!1 &1579455459862017261 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2196122077259171143, guid: 114c253a7d453414ab9b9b31e24e8c6e, type: 3}
+  m_PrefabInstance: {fileID: 833565309834981802}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &7275378956071986540 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 8027171172074951878, guid: 114c253a7d453414ab9b9b31e24e8c6e, type: 3}
@@ -416,5 +450,10 @@ PrefabInstance:
 --- !u!224 &1175183183217701222 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 2592294148573948126, guid: c0713359e9cb9e7458c4330e259b4fe0, type: 3}
+  m_PrefabInstance: {fileID: 3726371538587802040}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3215796269768693219 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2240108159126473819, guid: c0713359e9cb9e7458c4330e259b4fe0, type: 3}
   m_PrefabInstance: {fileID: 3726371538587802040}
   m_PrefabAsset: {fileID: 0}

@@ -83,6 +83,8 @@ public class RepairSpot : MonoBehaviour, IInteractable
     public bool IsRunning { get; private set; }
     public int LastScore { get; private set; }
 
+    int hitsThisRepair, roundsThisRepair;
+
     ScreenZoomController zoom;
     RawImage ring;
     RawImage glow;
@@ -214,6 +216,8 @@ public class RepairSpot : MonoBehaviour, IInteractable
         var cam = zoom.PlayerCamera;
 
         int rounds = Random.Range(minRounds, maxRounds + 1);
+        roundsThisRepair = rounds;
+        hitsThisRepair = 0;
         for (int i = 0; i < rounds; i++)
         {
             Transform nail = PickNail();
@@ -247,6 +251,7 @@ public class RepairSpot : MonoBehaviour, IInteractable
                     if (d <= hitRadius)
                     {
                         hit = true; decided = true;
+                        hitsThisRepair++;
                         score += pointsPerHit + Mathf.RoundToInt(maxSpeedBonus * (1f - Mathf.Clamp01(t)));
                     }
                     else if (missOnWrongClick) decided = true;
@@ -269,6 +274,10 @@ public class RepairSpot : MonoBehaviour, IInteractable
     IEnumerator Finish(int score, CursorLockMode prevLock, bool prevVisible)
     {
         LastScore = score;
+        // Raise the house's protection by how many nails were hit
+        // (quitting early counts the remaining nails as missed).
+        if (HouseProtection.Instance != null && roundsThisRepair > 0)
+            HouseProtection.Instance.AddFromRepair(hitsThisRepair / (float)roundsThisRepair);
         yield return new WaitForSeconds(0.4f);
         Cursor.lockState = prevLock;
         Cursor.visible = prevVisible;
