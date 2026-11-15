@@ -1635,7 +1635,7 @@ MonoBehaviour:
   terminalInputText: {fileID: 97510605}
   progressBarFill: {fileID: 750984057}
   progressPercentText: {fileID: 1793591291}
-  correctStepGain: 0.005
+  correctStepGain: 0.5
   errorStepPenalty: 0.06
   barSmoothSpeed: 10
   codeLength: 10
@@ -1643,6 +1643,7 @@ MonoBehaviour:
   loadingDuration: 5
   dotStepInterval: 0.25
   loadingPrefix: LOADING NEXT SEQUENCE
+  terminalSaveId: Monitor_01
   untypedColorHex: '#B0B8C0'
   correctColorHex: '#7DF9FF'
   wrongColorHex: '#FF3B3B'

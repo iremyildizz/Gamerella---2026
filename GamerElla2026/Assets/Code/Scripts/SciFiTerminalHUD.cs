@@ -50,6 +50,9 @@ public class SciFiTerminalHUD : MonoBehaviour
     private bool isHackComplete = false;
     private Vector2 originalTargetPos;
 
+    public static event System.Action OnHackCompleted;
+    public static event System.Action<float> OnHackProgressChanged;
+
     private string KeyProgress => $"{terminalSaveId}_Progress";
     private string KeyTargetCode => $"{terminalSaveId}_TargetCode";
     private string KeyTypedText => $"{terminalSaveId}_TypedText";
@@ -201,12 +204,12 @@ public class SciFiTerminalHUD : MonoBehaviour
             isHackComplete = true;
             SaveTerminalState();
             RefreshDisplay();
+            OnHackCompleted?.Invoke();
             return;
         }
 
         if (currentTypedText.Length >= targetCode.Length)
         {
-            // Clear typed text before starting loading transition so closing mid-load doesn't restore a finished line
             currentTypedText = "";
             targetCode = "";
             SaveTerminalState();
@@ -320,7 +323,6 @@ public class SciFiTerminalHUD : MonoBehaviour
         if (progressPercentText != null)
             progressPercentText.text = $"{Mathf.RoundToInt(value * 100f)}%";
     }
-    public static event System.Action<float> OnHackProgressChanged;
 
     public static float GetSavedProgress(string saveId = "Monitor_01")
     {
