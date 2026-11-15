@@ -21,6 +21,7 @@ public class PlayerInteractor : MonoBehaviour
     private InteractableOutline currentOutline;
 
     public bool HasInteractable => currentInteractable != null;
+    private bool showCooldown = false;
 
     void Start()
     {
@@ -34,6 +35,8 @@ public class PlayerInteractor : MonoBehaviour
 
         if (interactAction != null && currentInteractable != null)
         {
+            ShowInteractableCooldowm(currentInteractable.GetCooldown());
+
             if (interactAction.WasPressedThisFrame())
             {
                 if (currentInteractable is MonoBehaviour targetBehaviour)
@@ -102,6 +105,16 @@ public class PlayerInteractor : MonoBehaviour
             crosshairImage.sprite = defaultDotSprite;
             crosshairImage.rectTransform.sizeDelta = defaultDotSize;
         }
+    }
+
+    void ShowInteractableCooldowm(float cooldown) {
+        if (cooldown != 0.0)
+        {
+            showCooldown = true;
+            print(cooldown);
+        }
+
+        showCooldown = false;
     }
 
     void OnDrawGizmosSelected()
