@@ -39,10 +39,8 @@ public class SimpleInventory : MonoBehaviour
         HasBattery = true;
         isSuppressedByPrompt = false;
 
-        // Hide any active locker prompt immediately when picking up a battery
-        CameraLocker activeLocker = FindFirstObjectByType<CameraLocker>();
-        if (activeLocker != null)
-            activeLocker.HidePromptImmediately();
+        foreach (var locker in FindObjectsByType<CameraLocker>(FindObjectsSortMode.None))
+            locker.HidePromptImmediately();
 
         RefreshUI();
     }

@@ -4,6 +4,10 @@ using TMPro;
 
 public class CameraLocker : MonoBehaviour, IInteractable
 {
+    [Header("Camera")]
+    [Tooltip("The security camera this locker powers (the Camera 1-4 object with SecurityScreen). A battery put in here recharges only this camera.")]
+    [SerializeField] private SecurityScreen cameraToCharge;
+
     [Header("Hinge & Swing Settings")]
     [SerializeField] private Transform doorHinge;
     [SerializeField] private float openAngleY = -105f;
@@ -72,6 +76,7 @@ public class CameraLocker : MonoBehaviour, IInteractable
                 SimpleInventory.Instance.RemoveBattery();
                 HidePromptImmediately();
                 StartCoroutine(AnimateBatteryIntoLocker());
+                StartCoroutine(ChargeCameraWhenInserted());
                 OpenLockerWithAutoClose();
             }
             else
@@ -127,6 +132,13 @@ public class CameraLocker : MonoBehaviour, IInteractable
             yield return new WaitForSeconds(Mathf.Max(0f, autoCloseDelay - batteryFlyDuration));
 
         Destroy(flyingBattery);
+    }
+
+    private IEnumerator ChargeCameraWhenInserted()
+    {
+        yield return new WaitForSeconds(batteryFlyDuration);
+        if (cameraToCharge != null) cameraToCharge.ReplaceBattery();
+        else Debug.LogWarning($"{name}: no Camera To Charge assigned", this);
     }
 
     private void ShowLockedMessage()
