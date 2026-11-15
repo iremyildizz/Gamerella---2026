@@ -7,7 +7,7 @@ public class HouseProtection : MonoBehaviour
     public static HouseProtection Instance { get; private set; }
 
     public float maxProtection = 100f;
-    [Range(0f, 100f)] public float startProtection = 60f;
+    [Range(0f, 100f)] public float startProtection = 100f;
     [Tooltip("Percent lost per minute while awake (0 = only sleeping lowers it)")]
     public float drainPercentPerMinute = 3f;
     [Tooltip("Protection gained by a perfect repair (all nails hit). Scaled by accuracy.")]

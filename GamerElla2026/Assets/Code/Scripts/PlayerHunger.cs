@@ -5,7 +5,8 @@ public class PlayerHunger : MonoBehaviour
 {
     [Header("Hunger Settings")]
     public float maxHunger = 100f;
-    public float drainPerSecond = 2f;
+    [Tooltip("Percent of the bar lost per minute (10 = 10% per minute, drained smoothly)")]
+    public float drainPercentPerMinute = 10f;
 
     [Header("UI")]
     public Slider hungerSlider;
@@ -31,7 +32,8 @@ public class PlayerHunger : MonoBehaviour
     {
         if (currentHunger > 0f)
         {
-            currentHunger = Mathf.Max(0f, currentHunger - drainPerSecond * Time.deltaTime);
+            float perSecond = maxHunger * (drainPercentPerMinute / 100f) / 60f;
+            currentHunger = Mathf.Max(0f, currentHunger - perSecond * Time.deltaTime);
             UpdateUI();
         }
     }
