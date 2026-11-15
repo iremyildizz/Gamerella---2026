@@ -137,6 +137,10 @@ public class RepairSpot : MonoBehaviour, IInteractable
         } 
     }
 
+    public float GetCooldown() {
+        return CooldownRemaining;
+    }
+
     void GetViewPose(out Vector3 pos, out Quaternion rot)
     {
         if (viewPoint != null)
