@@ -1,5 +1,6 @@
 using System.Collections;
 using UnityEngine;
+using UnityEngine.Rendering;
 
 public class BunkerOpeninAudio : MonoBehaviour
 {
@@ -9,17 +10,24 @@ public class BunkerOpeninAudio : MonoBehaviour
     [Header("Closeness Sounds")]
     [SerializeField] private AudioClip[] farSounds;
     [SerializeField] private bool loopFarSound = false;
-    [SerializeField, Range(0f, 1f)] private float farVolume = 0.6f;
+    [SerializeField, Range(0f, 1f)] private float farVolume;
 
     [Space(6)]
     [SerializeField] private AudioClip[] closeSounds;
     [SerializeField] private bool loopCloseSound = true;
-    [SerializeField, Range(0f, 1f)] private float closeVolume = 1.0f;
+    [SerializeField, Range(0f, 1f)] private float closeVolume;
 
     [Header("Zombie Dying & Laser Zap Sounds")]
     [SerializeField] private AudioClip[] zombieDyingSounds;
+    [SerializeField, Range(0f, 2f)] private float deathVolume;
+    [SerializeField] private float delaySeconds;
+    [SerializeField] private float dyingSoundDelay;
+
+    [Header("Switch & Laser Sounds")]
+    [SerializeField] private AudioClip switchSound;
+    [SerializeField, Range(0f, 2f)] private float switchVolume;
     [SerializeField] private AudioClip[] laserZapOrExplosionSounds;
-    [SerializeField, Range(0f, 1f)] private float deathVolume = 1.0f;
+    [SerializeField] private float laserSoundDelay;
 
     [Header("Random Ambient Zombie Sounds")]
     [SerializeField] private AudioClip[] randomZombieSounds;
@@ -33,7 +41,7 @@ public class BunkerOpeninAudio : MonoBehaviour
     [SerializeField] private Vector2 pitchRange = new Vector2(0.93f, 1.07f);
 
     private bool isZombiePresent = false;
-    private Coroutine randomSoundCoroutine;
+    private Coroutine delayedStopCoroutine;
 
     private void Awake()
     {
@@ -49,13 +57,13 @@ public class BunkerOpeninAudio : MonoBehaviour
 
     private void Start()
     {
-        if (enableRandomSounds)
-            randomSoundCoroutine = StartCoroutine(RandomZombieSoundsLoop());
+        if (enableRandomSounds) StartCoroutine(RandomZombieSoundsLoop());
     }
 
     // Connect to: SecurityScreen -> On Detected Far ()
     public void PlayFarSound()
     {
+        CancelDelayedStop();
         isZombiePresent = true;
         PlayFromPool(farSounds, farVolume, loopFarSound);
     }
@@ -63,33 +71,84 @@ public class BunkerOpeninAudio : MonoBehaviour
     // Connect to: SecurityScreen -> On Reached Close ()
     public void PlayCloseSound()
     {
+        CancelDelayedStop();
         isZombiePresent = true;
         PlayFromPool(closeSounds, closeVolume, loopCloseSound);
     }
 
-    // Connect to: SecurityScreen -> On Zombie Died ()
-    // Plays BOTH a zombie death groan AND the laser zap/explosion sound together!
-    public void PlayZombieDyingSound()
+    public void PlayOnlyZombieDyingSound()
     {
         isZombiePresent = false;
         StopLoopingSound();
-        PlayOneShotFromPool(zombieDyingSounds, deathVolume);
-        PlayOneShotFromPool(laserZapOrExplosionSounds, deathVolume);
+        StartCoroutine(PlayZombieDyingDelayedRoutine());
     }
 
-    // Optional: Play ONLY the laser zap / explosion sound
-    public void PlayLaserZapOnly()
+    private IEnumerator PlayZombieDyingDelayedRoutine()
     {
-        PlayOneShotFromPool(laserZapOrExplosionSounds, deathVolume);
+        if (dyingSoundDelay > 0f)
+            yield return new WaitForSeconds(dyingSoundDelay);
+
+        PlayOneShotFromPool(zombieDyingSounds, deathVolume);
     }
 
-    // Connect to: SecurityScreen -> On Cleared ()
+    public void PlaySwitchUsedSound()
+    {
+        StartCoroutine(PlaySwitchAndZapRoutine());
+    }
+
+    private IEnumerator PlaySwitchAndZapRoutine()
+    {
+        if (audioSource != null && switchSound != null)
+            audioSource.PlayOneShot(switchSound, switchVolume);
+
+        yield return new WaitForSeconds(laserSoundDelay);
+        PlayOneShotFromPool(laserZapOrExplosionSounds, switchVolume);
+    }
+
     public void StopAllSounds()
     {
         isZombiePresent = false;
+        StopLoopingSound();
+    }
+
+    public void StopAllSoundsAfterDelay()
+    {
+        isZombiePresent = false;
+        CancelDelayedStop();
+        delayedStopCoroutine = StartCoroutine(HardStopAfterDelay(delaySeconds));
+    }
+
+    private IEnumerator HardStopAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        if (audioSource != null)
+        {
+            audioSource.loop = false;
+            audioSource.Stop();
+            audioSource.clip = null;
+        }
+        delayedStopCoroutine = null;
+    }
+
+    private void CancelDelayedStop()
+    {
+        if (delayedStopCoroutine != null)
+        {
+            StopCoroutine(delayedStopCoroutine);
+            delayedStopCoroutine = null;
+        }
+    }
+
+    private void StopLoopingSound()
+    {
         if (audioSource == null) return;
+
         audioSource.loop = false;
-        audioSource.Stop();
+        if (audioSource.clip != null)
+        {
+            audioSource.Stop();
+            audioSource.clip = null;
+        }
     }
 
     private IEnumerator RandomZombieSoundsLoop()
@@ -106,15 +165,6 @@ public class BunkerOpeninAudio : MonoBehaviour
             if (onlyWhenZombiePresent && !isZombiePresent) continue;
 
             PlayOneShotFromPool(randomZombieSounds, randomSoundVolume);
-        }
-    }
-
-    private void StopLoopingSound()
-    {
-        if (audioSource != null && audioSource.isPlaying)
-        {
-            audioSource.loop = false;
-            audioSource.Stop();
         }
     }
 
