@@ -14,8 +14,10 @@ public class PlayerInteractor : MonoBehaviour {
     public Sprite defaultDotSprite;
     public Sprite interactIconSprite;
     public TMP_Text cooldownTimer;
+    public TMP_Text tooltipText;
     public Vector2 defaultDotSize = new Vector2(12f, 12f);
     public Vector2 interactIconSize = new Vector2(36f, 36f);
+    public Color toolTipDefaultColor = Color.white;
 
     private InputAction interactAction;
     private IInteractable currentInteractable;
@@ -27,6 +29,7 @@ public class PlayerInteractor : MonoBehaviour {
         interactAction = InputSystem.actions.FindAction("Click");
         UpdateCrosshair(false);
         UpdateCooldownUI(0f);
+        UpdateTooltip(null, toolTipDefaultColor);
     }
 
     void Update() {
@@ -34,6 +37,7 @@ public class PlayerInteractor : MonoBehaviour {
 
         if (currentInteractable != null) {
             UpdateCooldownUI(currentInteractable.GetCooldown());
+            UpdateTooltip(currentInteractable.GetTooltip(), currentInteractable.GetTooltipColor());
 
             if (interactAction != null) {
                 if (interactAction.WasPressedThisFrame()) {
@@ -48,6 +52,7 @@ public class PlayerInteractor : MonoBehaviour {
             }
         } else {
             UpdateCooldownUI(0f);
+            UpdateTooltip(null, toolTipDefaultColor);
         }
     }
 
@@ -103,6 +108,20 @@ public class PlayerInteractor : MonoBehaviour {
             cooldownTimer.text = cooldown.ToString("F1");
         } else {
             cooldownTimer.gameObject.SetActive(false);
+        }
+    }
+
+    void UpdateTooltip(string tooltip, Color? color = null) {
+        if (string.IsNullOrEmpty(tooltip)) {
+            tooltipText.gameObject.SetActive(false);
+        } else {
+            tooltipText.gameObject.SetActive(true);
+            tooltipText.text = tooltip;
+            if (color.HasValue) {
+                tooltipText.color = color.Value;
+            } else {
+                tooltipText.color = toolTipDefaultColor;
+            }
         }
     }
 

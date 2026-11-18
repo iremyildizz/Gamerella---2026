@@ -6,4 +6,14 @@ public class TestInteractable : MonoBehaviour, IInteractable
     {
         Debug.Log($"Interacted with {gameObject.name}");
     }
+
+    public string GetTooltip()
+    {
+        return "This is a test interactable object.";
+    }
+
+    public Color GetTooltipColor()
+    {
+        return Color.green;
+    }
 }
