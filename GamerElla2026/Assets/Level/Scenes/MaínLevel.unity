@@ -2346,6 +2346,8 @@ MonoBehaviour:
   grabSounds:
   - {fileID: 8300000, guid: f357fd3687bb326498932f8e58bfd2e7, type: 3}
   pitchRange: {x: 0.95, y: 1.05}
+  tooltipText: +Battery
+  tooltipColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!114 &285874772
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6161,6 +6163,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 1.189
       objectReference: {fileID: 0}
+    - target: {fileID: 2703018976570262389, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 3591373894728721062, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
       propertyPath: m_Enabled
       value: 0
@@ -6233,6 +6239,19 @@ PrefabInstance:
     - {fileID: 8443240299044718611, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
     - {fileID: 9121113723042556427, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
     - {fileID: 4402025258310903052, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
+    - {fileID: 5197404884435437083, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
+    - {fileID: 3418400955181019877, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
+    - {fileID: 7688241259614251461, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
+    - {fileID: 6568611297278880019, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
+    - {fileID: 1273097041914181481, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
+    - {fileID: 2437632515198143852, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
+    - {fileID: 1805098214141649879, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
+    - {fileID: 7897123319994785627, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
+    - {fileID: 455918049864457567, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
+    - {fileID: 2102707832366915535, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
+    - {fileID: 608507718931145416, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
+    - {fileID: 2843030235511483571, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
+    - {fileID: 6422293494417344470, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
     m_AddedGameObjects: []
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 5944654773601380002, guid: 8b2ed08f82f4cea41907e2cf2f8938c5, type: 3}
@@ -8559,6 +8578,8 @@ MonoBehaviour:
   onNotTired:
     m_PersistentCalls:
       m_Calls: []
+  tooltipText: +Sleep
+  tooltipColor: {r: 0, g: 1, b: 0, a: 1}
 --- !u!4 &1223248735 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 4134907770517295244, guid: fcf6a6dee2dc64846a005c443a08a3a2, type: 3}
