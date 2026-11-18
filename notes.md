@@ -46,6 +46,7 @@ YOU'RE NEXT — POST-JAM TODO \& BUG LIST
   * Inventory should let you keep the battery even if you do another action
   * Add 1 more battery to main room
   * Cameras should not lose power at the same time.
+  * Not easily visible
 * Lasers / Windows / Doors / Lockers:
 
   * Labels to explain what each object does
