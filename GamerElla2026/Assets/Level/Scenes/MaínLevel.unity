@@ -7943,6 +7943,10 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7443626600742214709, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
+      propertyPath: bobAmplitude
+      value: 0.06
+      objectReference: {fileID: 0}
+    - target: {fileID: 7443626600742214709, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
       propertyPath: playerCamera
       value: 
       objectReference: {fileID: 887831326}
