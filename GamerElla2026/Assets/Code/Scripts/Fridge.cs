@@ -29,6 +29,10 @@ public class Fridge : MonoBehaviour, IInteractable
     [Header("Player Reference")]
     public PlayerCharacter3D player;
 
+    [Header("Tooltip")]
+    public string tooltipText = "+Food";
+    public Color tooltipColor = Color.green;
+
     private Quaternion closedRotation;
     private Quaternion openRotation;
     private bool isOpen = false;
@@ -175,5 +179,15 @@ public class Fridge : MonoBehaviour, IInteractable
             loadingRing.fillAmount = 0f;
             loadingRing.enabled = false;
         }
+    }
+
+    public string GetTooltip()
+    {
+        return tooltipText;
+    }
+
+    public Color GetTooltipColor()
+    {
+        return tooltipColor;
     }
 }

@@ -13,6 +13,10 @@ public class MonitorInteraction : MonoBehaviour, IInteractable
     [SerializeField] private MonoBehaviour[] scriptsToDisable;
     [SerializeField] private GameObject playerHudCanvas;
 
+    [Header("Tooltip")]
+    public string tooltipText = "+Objective";
+    public Color tooltipColor = Color.blue;
+
     private bool isHackingOpen = false;
     private bool isTransitioning = false;
 
@@ -111,5 +115,15 @@ public class MonitorInteraction : MonoBehaviour, IInteractable
                 rootObj.SetActive(false);
             }
         }
+    }
+
+    public string GetTooltip()
+    {
+        return tooltipText;
+    }
+
+    public Color GetTooltipColor()
+    {
+        return tooltipColor;
     }
 }

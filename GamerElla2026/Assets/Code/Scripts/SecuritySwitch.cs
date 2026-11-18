@@ -22,6 +22,10 @@ public class SecuritySwitch : MonoBehaviour, IInteractable
     public UnityEvent onUsed;     // laser fired from this switch
     public UnityEvent onDenied;   // laser still cooling down
 
+    [Header("Tooltip")]
+    public string tooltipText = "Attack zombie";
+    public Color tooltipColor = Color.green;
+
     Quaternion leverRest;
     Coroutine leverRoutine;
 
@@ -85,5 +89,15 @@ public class SecuritySwitch : MonoBehaviour, IInteractable
         if (outline != null) {
             outline.enabled = isEnabled;
         }
+    }
+
+    public string GetTooltip()
+    {
+        return tooltipText;
+    }
+
+    public Color GetTooltipColor()
+    {
+        return tooltipColor;
     }
 }

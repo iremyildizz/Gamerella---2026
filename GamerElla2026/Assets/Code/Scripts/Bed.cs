@@ -14,6 +14,10 @@ public class Bed : MonoBehaviour, IInteractable
     public UnityEvent onWentToBed;
     public UnityEvent onNotTired;     // tried to sleep while too rested
 
+    [Header("Tooltip")]
+    public string tooltipText = "+Sleep";
+    public Color tooltipColor = Color.green;
+
     PlayerSleep sleep;
 
     void Awake()
@@ -31,5 +35,15 @@ public class Bed : MonoBehaviour, IInteractable
             return;
         }
         if (sleep.GoToSleep()) onWentToBed.Invoke();
+    }
+
+    public string GetTooltip()
+    {
+        return tooltipText;
+    }
+
+    public Color GetTooltipColor()
+    {
+        return tooltipColor;
     }
 }

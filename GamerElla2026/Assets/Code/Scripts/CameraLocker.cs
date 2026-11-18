@@ -33,6 +33,10 @@ public class CameraLocker : MonoBehaviour, IInteractable
     [SerializeField] private string lockedMessage = "You need a battery to open this locker.";
     [SerializeField] private float messageDuration = 2.5f;
 
+    [Header("Tooltip")]
+    public string tooltipText = "Add Battery";
+    public Color tooltipColor = Color.green;
+
     private Quaternion closedRotation;
     private Quaternion openRotation;
     private bool isOpen = false;
@@ -221,5 +225,15 @@ public class CameraLocker : MonoBehaviour, IInteractable
             audioSource.pitch = Random.Range(pitchRange.x, pitchRange.y);
             audioSource.PlayOneShot(clips[index]);
         }
+    }
+
+    public string GetTooltip()
+    {
+        return tooltipText;
+    }
+
+    public Color GetTooltipColor()
+    {
+        return tooltipColor;
     }
 }

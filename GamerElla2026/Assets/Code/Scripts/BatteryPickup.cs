@@ -7,6 +7,10 @@ public class BatteryPickup : MonoBehaviour, IInteractable
     [SerializeField] private AudioClip[] grabSounds;
     [SerializeField] private Vector2 pitchRange = new Vector2(0.95f, 1.05f);
 
+    [Header("Tooltip")]
+    public string tooltipText = "+Battery";
+    public Color tooltipColor = Color.green;
+
     private void Start()
     {
         if (audioSource == null)
@@ -37,5 +41,15 @@ public class BatteryPickup : MonoBehaviour, IInteractable
             audioSource.pitch = Random.Range(pitchRange.x, pitchRange.y);
             audioSource.PlayOneShot(clip);
         }
+    }
+
+    public string GetTooltip()
+    {
+        return tooltipText;
+    }
+
+    public Color GetTooltipColor()
+    {
+        return tooltipColor;
     }
 }
