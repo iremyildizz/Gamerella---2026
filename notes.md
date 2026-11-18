@@ -29,12 +29,26 @@ YOU'RE NEXT — POST-JAM TODO \& BUG LIST
 
   * Zombie spawn rate escalates too fast until zombies are permanently present, making battery replacement feel pointless.
   * Cap/limit maximum zombie spawns and pace escalation better.
-* Needs Depletion:
+* Needs Depletion / Protection:
 
   * Sleep drains way too fast compared to hunger (currently feels annoying rather than strategic).
+  * You should get hungry faster than sleepy
+  * Dying from protection is not easy to understand
+* Hacking:
+
+  * When escaped it removes the time
+  * Shorter coding (code longer - percentage faster)
 * Optional / Stretch Features:
 
   * Add difficulty levels.
+* Battery / Inventory:
+
+  * Inventory should let you keep the battery even if you do another action
+  * Add 1 more battery to main room
+  * Cameras should not lose power at the same time.
+* Lasers / Windows / Doors / Lockers:
+
+  * Labels to explain what each object does
 
 
 
