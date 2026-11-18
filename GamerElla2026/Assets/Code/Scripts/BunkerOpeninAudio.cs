@@ -7,6 +7,9 @@ public class BunkerOpeninAudio : MonoBehaviour
     [Header("3D Audio Source")]
     [SerializeField] private AudioSource audioSource;
 
+    [Header("Window / Door Light")]
+    [SerializeField] private WindowLaserLight windowLaserLight;
+
     [Header("Closeness Sounds")]
     [SerializeField] private AudioClip[] farSounds;
     [SerializeField] private bool loopFarSound = false;
@@ -47,6 +50,9 @@ public class BunkerOpeninAudio : MonoBehaviour
     {
         if (audioSource == null)
             audioSource = GetComponent<AudioSource>();
+
+        if (windowLaserLight == null)
+            windowLaserLight = GetComponent<WindowLaserLight>();
 
         if (audioSource != null)
         {
@@ -98,6 +104,9 @@ public class BunkerOpeninAudio : MonoBehaviour
 
     private IEnumerator PlaySwitchAndZapRoutine()
     {
+        if (windowLaserLight != null)
+            windowLaserLight.TriggerLaserSequence(laserSoundDelay);
+
         if (audioSource != null && switchSound != null)
             audioSource.PlayOneShot(switchSound, switchVolume);
 
