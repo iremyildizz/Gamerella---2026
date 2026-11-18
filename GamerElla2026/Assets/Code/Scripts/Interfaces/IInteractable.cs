@@ -1,3 +1,5 @@
+using UnityEngine;
+
 public interface IInteractable
 {
     void Interact();
@@ -6,4 +8,6 @@ public interface IInteractable
     void OnHoverExit() { }
 
     float GetCooldown() { return 0.0f; }
+    string GetTooltip() { return null; }
+    Color GetTooltipColor() { return Color.white; }
 }
