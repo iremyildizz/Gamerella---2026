@@ -31,7 +31,7 @@ YOU'RE NEXT — POST-JAM TODO \& BUG LIST
 
 - Hacking:
   - When escaped it removes the time
-  - Shorter coding (code longer - percentage faster)
+  - ~~Shorter coding (code longer - percentage faster)~~
 
 - Optional / Stretch Features:
   - Add difficulty levels.

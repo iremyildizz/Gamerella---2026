@@ -1712,8 +1712,8 @@ MonoBehaviour:
   terminalInputText: {fileID: 97510605}
   progressBarFill: {fileID: 750984057}
   progressPercentText: {fileID: 1793591291}
-  correctStepGain: 0.007
-  errorStepPenalty: 0.035
+  correctStepGain: 0.005
+  errorStepPenalty: 0.025
   barSmoothSpeed: 10
   codeLength: 15
   caseSensitive: 0
