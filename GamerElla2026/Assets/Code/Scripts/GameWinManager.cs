@@ -2,6 +2,7 @@ using System.Collections;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
+[DefaultExecutionOrder(-100)]
 public class GameWinManager : MonoBehaviour
 {
     [Header("Win UI")]
@@ -15,6 +16,11 @@ public class GameWinManager : MonoBehaviour
     [SerializeField] private GameObject playerHudCanvas;
 
     private bool hasWon = false;
+
+    private void Awake()
+    {
+        ClearSavedHackData();
+    }
 
     private void OnEnable()
     {
@@ -30,12 +36,6 @@ public class GameWinManager : MonoBehaviour
     {
         if (winPanel != null)
             winPanel.SetActive(false);
-
-        // If the game starts and saved progress is already 100%, reset it so a fresh run can be played
-        if (SciFiTerminalHUD.GetSavedProgress(terminalSaveId) >= 1f)
-        {
-            ClearSavedHackData();
-        }
     }
 
     private void HandleHackCompleted()

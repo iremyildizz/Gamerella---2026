@@ -1548,11 +1548,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4204345767458523836, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: startChargeRange.x
-      value: 150
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 4204345767458523836, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: startChargeRange.y
-      value: 200
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 4204345767458523836, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: onCleared.m_PersistentCalls.m_Calls.Array.size
@@ -1712,11 +1712,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6146968357977806009, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: startChargeRange.x
-      value: 150
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6146968357977806009, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: startChargeRange.y
-      value: 200
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 6146968357977806009, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: onCleared.m_PersistentCalls.m_Calls.Array.size
@@ -1840,11 +1840,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6445381654372182450, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: startChargeRange.x
-      value: 150
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 6445381654372182450, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: startChargeRange.y
-      value: 200
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 6445381654372182450, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: onCleared.m_PersistentCalls.m_Calls.Array.size
@@ -1964,11 +1964,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7634147000798048715, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: startChargeRange.x
-      value: 150
+      value: 50
       objectReference: {fileID: 0}
     - target: {fileID: 7634147000798048715, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: startChargeRange.y
-      value: 200
+      value: 300
       objectReference: {fileID: 0}
     - target: {fileID: 7634147000798048715, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: onCleared.m_PersistentCalls.m_Calls.Array.size
@@ -13240,7 +13240,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1658540371440678497, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.000061035156
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2631194450527708934, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
       propertyPath: m_AnchorMax.x
