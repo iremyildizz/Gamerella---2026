@@ -375,7 +375,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d48949a40463ebb41a925df9871da7c9, type: 3}
   - {fileID: 8300000, guid: abcb37a2a3946c640a49b744af624398, type: 3}
   loopFarSound: 0
-  farVolume: 0.05
+  farVolume: 0.3
   closeSounds:
   - {fileID: 8300000, guid: 58e37e3fc8b79ab4d8246c962f5dfb98, type: 3}
   - {fileID: 8300000, guid: 4d56bb6f14a65da4ab21e4075f9b816f, type: 3}
@@ -395,7 +395,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a306dcb2b5324434a9130e3db6fac4f2, type: 3}
   - {fileID: 8300000, guid: 709359978dc47944189fc5f9ad8a59e5, type: 3}
   loopCloseSound: 0
-  closeVolume: 0.2
+  closeVolume: 0.65
   zombieDyingSounds:
   - {fileID: 8300000, guid: 7b948207594a15a47af24bcdc2d04511, type: 3}
   - {fileID: 8300000, guid: 6620f7228db57e8489fdb32acd3c7fc1, type: 3}
@@ -1484,11 +1484,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2428894409370389000, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: spawnIntervalMax
-      value: 50
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2428894409370389000, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: spawnIntervalMin
-      value: 10
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 2428894409370389000, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: flickerAudioSource
@@ -6673,7 +6673,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d48949a40463ebb41a925df9871da7c9, type: 3}
   - {fileID: 8300000, guid: abcb37a2a3946c640a49b744af624398, type: 3}
   loopFarSound: 0
-  farVolume: 0.05
+  farVolume: 0.3
   closeSounds:
   - {fileID: 8300000, guid: 58e37e3fc8b79ab4d8246c962f5dfb98, type: 3}
   - {fileID: 8300000, guid: 4d56bb6f14a65da4ab21e4075f9b816f, type: 3}
@@ -6693,7 +6693,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a306dcb2b5324434a9130e3db6fac4f2, type: 3}
   - {fileID: 8300000, guid: 709359978dc47944189fc5f9ad8a59e5, type: 3}
   loopCloseSound: 0
-  closeVolume: 0.2
+  closeVolume: 0.65
   zombieDyingSounds:
   - {fileID: 8300000, guid: 7b948207594a15a47af24bcdc2d04511, type: 3}
   - {fileID: 8300000, guid: 6620f7228db57e8489fdb32acd3c7fc1, type: 3}
@@ -9541,7 +9541,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d48949a40463ebb41a925df9871da7c9, type: 3}
   - {fileID: 8300000, guid: abcb37a2a3946c640a49b744af624398, type: 3}
   loopFarSound: 0
-  farVolume: 0.05
+  farVolume: 0.3
   closeSounds:
   - {fileID: 8300000, guid: 58e37e3fc8b79ab4d8246c962f5dfb98, type: 3}
   - {fileID: 8300000, guid: 4d56bb6f14a65da4ab21e4075f9b816f, type: 3}
@@ -9561,7 +9561,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a306dcb2b5324434a9130e3db6fac4f2, type: 3}
   - {fileID: 8300000, guid: 709359978dc47944189fc5f9ad8a59e5, type: 3}
   loopCloseSound: 0
-  closeVolume: 0.2
+  closeVolume: 0.65
   zombieDyingSounds:
   - {fileID: 8300000, guid: 7b948207594a15a47af24bcdc2d04511, type: 3}
   - {fileID: 8300000, guid: 6620f7228db57e8489fdb32acd3c7fc1, type: 3}
@@ -9602,7 +9602,7 @@ MonoBehaviour:
   onlyWhenZombiePresent: 1
   randomIntervalMin: 10
   randomIntervalMax: 30
-  randomSoundVolume: 0.05
+  randomSoundVolume: 0.3
   pitchRange: {x: 0.93, y: 1.07}
 --- !u!114 &1293454443 stripped
 MonoBehaviour:
@@ -12045,7 +12045,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: d48949a40463ebb41a925df9871da7c9, type: 3}
   - {fileID: 8300000, guid: abcb37a2a3946c640a49b744af624398, type: 3}
   loopFarSound: 0
-  farVolume: 0.05
+  farVolume: 0.3
   closeSounds:
   - {fileID: 8300000, guid: 58e37e3fc8b79ab4d8246c962f5dfb98, type: 3}
   - {fileID: 8300000, guid: 4d56bb6f14a65da4ab21e4075f9b816f, type: 3}
@@ -12065,7 +12065,7 @@ MonoBehaviour:
   - {fileID: 8300000, guid: a306dcb2b5324434a9130e3db6fac4f2, type: 3}
   - {fileID: 8300000, guid: 709359978dc47944189fc5f9ad8a59e5, type: 3}
   loopCloseSound: 0
-  closeVolume: 0.2
+  closeVolume: 0.65
   zombieDyingSounds:
   - {fileID: 8300000, guid: 7b948207594a15a47af24bcdc2d04511, type: 3}
   - {fileID: 8300000, guid: 6620f7228db57e8489fdb32acd3c7fc1, type: 3}
