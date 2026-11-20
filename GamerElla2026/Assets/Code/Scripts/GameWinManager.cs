@@ -87,6 +87,13 @@ public class GameWinManager : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }
 
+    public void LoadMainMenu()
+    {
+        ClearSavedHackData();
+        Time.timeScale = 1f;
+        SceneManager.LoadScene("MainMenu");
+    }
+
     private void ClearSavedHackData()
     {
         PlayerPrefs.DeleteKey($"{terminalSaveId}_Progress");

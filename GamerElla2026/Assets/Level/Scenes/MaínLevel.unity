@@ -8191,7 +8191,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4563480860453160152, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
       propertyPath: drainPercentPerMinute
-      value: 400
+      value: 40
       objectReference: {fileID: 0}
     - target: {fileID: 4580651783479466658, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
       propertyPath: m_Name
@@ -13240,7 +13240,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1658540371440678497, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: 0.000061035156
       objectReference: {fileID: 0}
     - target: {fileID: 2631194450527708934, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
       propertyPath: m_AnchorMax.x
@@ -14138,6 +14138,9 @@ MonoBehaviour:
   zombieBreachSound: {fileID: 8300000, guid: 750cbce4d2e245b40ad560048b783331, type: 3}
   scriptsToDisable:
   - {fileID: 0}
+  hackingSceneName: HackingMiniGame
+  playerMainCamera: {fileID: 0}
+  overlaysToHideOnDeath: []
   onStarvationGameOver:
     m_PersistentCalls:
       m_Calls: []
