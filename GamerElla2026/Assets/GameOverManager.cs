@@ -32,6 +32,11 @@ public class GameOverManager : MonoBehaviour
     [Header("Controls to Disable on Death")]
     [SerializeField] private MonoBehaviour[] scriptsToDisable;
 
+    [Header("Cleanup on Death (Minigames & Sleep)")]
+    [SerializeField] private string hackingSceneName = "HackingMiniGame";
+    [SerializeField] private Camera playerMainCamera;
+    [SerializeField] private GameObject[] overlaysToHideOnDeath; // e.g., Sleep black fade panel, Repair minigame UI
+
     [Header("Events")]
     public UnityEvent onStarvationGameOver;
     public UnityEvent onZombieBreachGameOver;
@@ -92,6 +97,24 @@ public class GameOverManager : MonoBehaviour
 
         if (gameOverCanvasOrPanel != null)
             gameOverCanvasOrPanel.SetActive(true);
+
+        // 1. Re-enable Player Main Camera in case a minigame disabled it
+        if (playerMainCamera != null)
+            playerMainCamera.gameObject.SetActive(true);
+
+        // 2. Unload additive HackingMiniGame if currently open
+        Scene hackingScene = SceneManager.GetSceneByName(hackingSceneName);
+        if (hackingScene.isLoaded)
+            SceneManager.UnloadSceneAsync(hackingScene);
+
+        // 3. Hide sleep black-screen fade or repair minigame canvases so they don't cover GameOverCanvas
+        if (overlaysToHideOnDeath != null)
+        {
+            foreach (var overlay in overlaysToHideOnDeath)
+            {
+                if (overlay != null) overlay.SetActive(false);
+            }
+        }
 
         // Unlock cursor so the player can click Restart / Main Menu
         Cursor.lockState = CursorLockMode.None;

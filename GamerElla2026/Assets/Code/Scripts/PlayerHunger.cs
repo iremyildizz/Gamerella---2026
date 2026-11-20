@@ -51,6 +51,9 @@ public class PlayerHunger : MonoBehaviour
         currentHunger = Mathf.Clamp(currentHunger - amount, 0f, maxHunger);
         UpdateUI();
         CheckStarvation();
+
+        if (GameOverManager.Instance != null && GameOverManager.Instance.IsGameOver)
+            return;
     }
 
     public void ReplenishHunger()

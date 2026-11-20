@@ -519,7 +519,7 @@ Canvas:
   m_AdditionalShaderChannelsFlag: 25
   m_UpdateRectTransformForStandalone: 0
   m_SortingLayerID: 0
-  m_SortingOrder: 0
+  m_SortingOrder: 999
   m_TargetDisplay: 0
 --- !u!224 &48342803
 RectTransform:
@@ -1518,6 +1518,22 @@ PrefabInstance:
       propertyPath: spikeIntensityMultiplier
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 2428894409370389000, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
+      propertyPath: flickerAudioSources.Array.size
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 2428894409370389000, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
+      propertyPath: 'flickerAudioSources.Array.data[0]'
+      value: 
+      objectReference: {fileID: 1409785110}
+    - target: {fileID: 2428894409370389000, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
+      propertyPath: 'flickerAudioSources.Array.data[1]'
+      value: 
+      objectReference: {fileID: 1522993090}
+    - target: {fileID: 2428894409370389000, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
+      propertyPath: 'flickerAudioSources.Array.data[2]'
+      value: 
+      objectReference: {fileID: 1717306872}
     - target: {fileID: 2803837247071174545, guid: 47e5524d610484fd7853bfc674e9fb7c, type: 3}
       propertyPath: m_Name
       value: SecurityWall
@@ -8175,7 +8191,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4563480860453160152, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
       propertyPath: drainPercentPerMinute
-      value: 40
+      value: 400
       objectReference: {fileID: 0}
     - target: {fileID: 4580651783479466658, guid: 34ce501036f0e8a47ab5ff7ad4607731, type: 3}
       propertyPath: m_Name
@@ -11447,6 +11463,11 @@ MonoBehaviour:
   randomIntervalMax: 10
   randomSoundVolume: 0.55
   pitchRange: {x: 0.93, y: 1.07}
+--- !u!82 &1522993090 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2353534409520512359, guid: 4970127859b47aa4caef5a090e274d35, type: 3}
+  m_PrefabInstance: {fileID: 258327441}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1527264342
 GameObject:
   m_ObjectHideFlags: 0
@@ -13142,6 +13163,11 @@ RectTransform:
   m_AnchoredPosition: {x: -15.43, y: 1.1163101}
   m_SizeDelta: {x: 20, y: 5}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!82 &1717306872 stripped
+AudioSource:
+  m_CorrespondingSourceObject: {fileID: 2353534409520512359, guid: 4970127859b47aa4caef5a090e274d35, type: 3}
+  m_PrefabInstance: {fileID: 378123800}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1720802940
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13214,7 +13240,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 1658540371440678497, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.00015258789
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 2631194450527708934, guid: b6fb79b368a55468d807fcea96a67532, type: 3}
       propertyPath: m_AnchorMax.x
