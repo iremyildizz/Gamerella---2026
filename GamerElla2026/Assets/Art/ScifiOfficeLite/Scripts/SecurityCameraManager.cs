@@ -15,7 +15,7 @@ public class SecurityCameraManager : MonoBehaviour
     [SerializeField] private float spikeIntensityMultiplier = 1.25f;
 
     [Header("Light Flicker Audio")]
-    [SerializeField] private AudioSource flickerAudioSource;
+    [SerializeField] private AudioSource[] flickerAudioSources;
     [SerializeField] private AudioClip[] flickerSounds; // Short electric buzz/spark clips
     [SerializeField] private Vector2 flickerPitchRange = new Vector2(0.9f, 1.15f);
     [SerializeField, Range(0f, 1f)] private float flickerVolume = 0.6f;
@@ -47,7 +47,7 @@ public class SecurityCameraManager : MonoBehaviour
 
     private float[] baseIntensities;
     private Color[] baseEmissionColors;
-    private bool isFlickering = false;
+    private bool[] isFlickering;
     private int lastFlickerSoundIndex = -1;
 
     private void Awake()
@@ -55,10 +55,12 @@ public class SecurityCameraManager : MonoBehaviour
         if (roomLights != null)
         {
             baseIntensities = new float[roomLights.Length];
+            isFlickering = new bool[roomLights.Length];
             for (int i = 0; i < roomLights.Length; i++)
             {
                 if (roomLights[i] != null)
                     baseIntensities[i] = roomLights[i].intensity;
+                isFlickering[i] = false;
             }
         }
 
@@ -97,77 +99,106 @@ public class SecurityCameraManager : MonoBehaviour
         free[Random.Range(0, free.Length)].Activate(this);
     }
 
+    private int GetLightIndexForScreen(int screenIndex)
+    {
+        // Camera 1 (0) & Camera 2 (1) -> Light 1 (0)
+        // Camera 3 (2) -> Light 2 (1)
+        // Camera 4 (3) -> Light 3 (2)
+        if (screenIndex <= 1) return 0;
+        return screenIndex - 1;
+    }
+
     IEnumerator MonitorMovementForLights()
     {
         while (true)
         {
-            bool movementDetected = screens != null && screens.Any(s => s != null && !s.IsFree);
-
-            if (movementDetected)
+            if (screens == null || screens.Length == 0)
             {
-                isFlickering = true;
-                bool isDimPulse = Random.value < 0.65f;
-                float mult = isDimPulse
-                    ? Random.Range(dimIntensityMultiplier, 0.5f)
-                    : Random.Range(0.85f, spikeIntensityMultiplier);
-
-                ApplyLightMultiplier(mult);
-
-                // Play a crackle/buzz when the light dips or surges sharply
-                if (isDimPulse || mult > 1.1f)
-                    PlayFlickerSound();
-
-                yield return new WaitForSeconds(Random.Range(flickerIntervalMin, flickerIntervalMax));
-            }
-            else
-            {
-                if (isFlickering)
-                {
-                    ApplyLightMultiplier(1f);
-                    isFlickering = false;
-                }
                 yield return new WaitForSeconds(0.1f);
+                continue;
             }
+
+            // Track which of the 3 lights (0, 1, 2) have movement on their mapped camera(s)
+            bool[] lightHasMovement = new bool[3];
+            for (int i = 0; i < screens.Length; i++)
+            {
+                bool active = screens[i] != null && !screens[i].IsFree;
+                if (isFlickering != null && i < isFlickering.Length)
+                    isFlickering[i] = active;
+
+                if (active)
+                {
+                    int lightIdx = GetLightIndexForScreen(i);
+                    if (lightIdx >= 0 && lightIdx < lightHasMovement.Length)
+                        lightHasMovement[lightIdx] = true;
+                }
+            }
+
+            bool anyLightActive = false;
+
+            for (int lightIdx = 0; lightIdx < lightHasMovement.Length; lightIdx++)
+            {
+                if (lightHasMovement[lightIdx])
+                {
+                    anyLightActive = true;
+                    bool isDimPulse = Random.value < 0.65f;
+                    float mult = isDimPulse
+                        ? Random.Range(dimIntensityMultiplier, 0.5f)
+                        : Random.Range(0.85f, spikeIntensityMultiplier);
+
+                    ApplyLightMultiplier(lightIdx, mult);
+
+                    if (isDimPulse || mult > 1.1f)
+                        PlayFlickerSound(lightIdx);
+                }
+                else
+                {
+                    // Restore this specific light to normal if its mapped camera(s) are clear
+                    ApplyLightMultiplier(lightIdx, 1f);
+                }
+            }
+
+            yield return new WaitForSeconds(
+                anyLightActive
+                    ? Random.Range(flickerIntervalMin, flickerIntervalMax)
+                    : 0.1f
+            );
         }
     }
 
-    private void PlayFlickerSound()
+    private void PlayFlickerSound(int index)
     {
-        if (flickerAudioSource == null || flickerSounds == null || flickerSounds.Length == 0)
+        if (flickerAudioSources == null || flickerAudioSources.Length == 0 || flickerSounds == null || flickerSounds.Length == 0)
             return;
 
-        int index = Random.Range(0, flickerSounds.Length);
-        if (flickerSounds.Length > 1 && index == lastFlickerSoundIndex)
-            index = (index + 1) % flickerSounds.Length;
+        AudioSource source = flickerAudioSources[index % flickerAudioSources.Length];
+        if (source == null) return;
 
-        lastFlickerSoundIndex = index;
+        int clipIndex = Random.Range(0, flickerSounds.Length);
+        if (flickerSounds.Length > 1 && clipIndex == lastFlickerSoundIndex)
+            clipIndex = (clipIndex + 1) % flickerSounds.Length;
 
-        AudioClip clip = flickerSounds[index];
+        lastFlickerSoundIndex = clipIndex;
+
+        AudioClip clip = flickerSounds[clipIndex];
         if (clip != null)
         {
-            flickerAudioSource.pitch = Random.Range(flickerPitchRange.x, flickerPitchRange.y);
-            flickerAudioSource.PlayOneShot(clip, flickerVolume);
+            source.pitch = Random.Range(flickerPitchRange.x, flickerPitchRange.y);
+            source.PlayOneShot(clip, flickerVolume);
         }
     }
 
-    private void ApplyLightMultiplier(float multiplier)
+    private void ApplyLightMultiplier(int lightIndex, float multiplier)
     {
-        if (roomLights != null)
+        if (roomLights != null && lightIndex >= 0 && lightIndex < roomLights.Length && roomLights[lightIndex] != null)
         {
-            for (int i = 0; i < roomLights.Length; i++)
-            {
-                if (roomLights[i] != null)
-                    roomLights[i].intensity = baseIntensities[i] * multiplier;
-            }
+            roomLights[lightIndex].intensity = baseIntensities[lightIndex] * multiplier;
         }
 
-        if (emissiveLampRenderers != null)
+        if (emissiveLampRenderers != null && lightIndex >= 0 && lightIndex < emissiveLampRenderers.Length && emissiveLampRenderers[lightIndex] != null)
         {
-            for (int i = 0; i < emissiveLampRenderers.Length; i++)
-            {
-                if (emissiveLampRenderers[i] != null && emissiveLampRenderers[i].material.HasProperty("_EmissionColor"))
-                    emissiveLampRenderers[i].material.SetColor("_EmissionColor", baseEmissionColors[i] * multiplier);
-            }
+            if (emissiveLampRenderers[lightIndex].material.HasProperty("_EmissionColor"))
+                emissiveLampRenderers[lightIndex].material.SetColor("_EmissionColor", baseEmissionColors[lightIndex] * multiplier);
         }
     }
 
